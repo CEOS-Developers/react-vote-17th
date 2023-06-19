@@ -53,7 +53,7 @@ const Info = styled.div`
   margin-top: 100px;
 `;
 const Input = styled.form`
-  margin-top: 20px;
+  margin-top: 40px;
 
   .Team_Part {
     width: 105px;
@@ -73,5 +73,5 @@ const Content = styled.input`
   font-weight: bold;
 `;
 const LoginBtn = styled.div`
-  margin-top: 60px;
+  margin-top: 90px;
 `;

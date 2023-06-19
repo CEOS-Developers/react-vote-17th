@@ -22,18 +22,14 @@ const Button = styled.div`
   border-radius: 50px;
   justify-content: center;
   align-items: center;
+  color: #ffffff;
+  font-size: 18px;
+  margin-bottom: 5px;
 
   &:hover {
-    background-color: #898987;
+    background-color: #00000008;
     cursor: pointer;
-  }
-
-  .join {
-    color: #ffffff;
-    font-size: 18px;
-    text-decoration-line: none;
-    justify-content: center;
-    margin-bottom: 5px;
-    text-decoration-line: none;
+    transition: 0.5s;
+    color: #000000;
   }
 `;
