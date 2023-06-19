@@ -1,11 +1,36 @@
 'use client';
+import { useEffect, useState, useRef } from 'react';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import arrow from '@/assets/images/arrow.svg';
 import arrows from '@/assets/images/arrows.svg';
 import Link from 'next/link';
 
 export default async function page() {
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
+
+  const removeHandler = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    const onClick = () => {
+      if (ref.current !== null) {
+        setIsOpen(!isOpen);
+      }
+      console.log('click');
+    };
+
+    if (isOpen) {
+      window.addEventListener('click', onClick);
+    }
+
+    return () => {
+      window.removeEventListener('click', onClick);
+    };
+  }, [isOpen]);
+
   return (
     <Container>
       <Head>
@@ -37,9 +62,44 @@ export default async function page() {
         </Input>
         <Input>
           <Title>{'Team / Part'}</Title>
-          <Arrows src={arrows.src} />
+          <Arrows src={arrows.src} onClick={removeHandler} ref={ref} />
+          <TeamPart isdropped={isOpen}>
+            <Ul>
+              <Li>
+                <TeamPartName>Repick</TeamPartName>
+              </Li>
+              <Li>
+                <TeamPartName>Dan-support</TeamPartName>
+              </Li>
+              <Li>
+                <TeamPartName>BariBari</TeamPartName>
+              </Li>
+              <Li>
+                <TeamPartName>Therapease</TeamPartName>
+              </Li>
+              <Li>
+                <TeamPartName>Hooking</TeamPartName>
+              </Li>
+            </Ul>
+          </TeamPart>
           <Content className="Team_Part" />
-          <Arrows src={arrows.src} />
+          <Arrows src={arrows.src} onClick={removeHandler} ref={ref} />
+          <TeamPart isdropped={isOpen}>
+            <Ul>
+              <Li>
+                <TeamPartName>FE</TeamPartName>
+              </Li>
+              <Li>
+                <TeamPartName>BE</TeamPartName>
+              </Li>
+              <Li>
+                <TeamPartName>DE</TeamPartName>
+              </Li>
+              <Li>
+                <TeamPartName>PM</TeamPartName>
+              </Li>
+            </Ul>
+          </TeamPart>
           <Content className="Team_Part" />
         </Input>
         <Button
@@ -115,4 +175,69 @@ const Button = styled.div`
     font-size: 18px;
     text-decoration-line: none;
   }
+`;
+
+//
+
+const TeamPart = styled.div<{ isdropped: boolean }>`
+  background: gray;
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  width: 100px;
+  text-align: center;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+  z-index: 9;
+
+  &:after {
+    content: '';
+    height: 0;
+    width: 0;
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 12px solid transparent;
+    border-top-width: 0;
+    border-bottom-color: gray;
+  }
+
+  ${({ isdropped }) =>
+    isdropped &&
+    css`
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+      left: 50%;
+    `};
+`;
+
+const Ul = styled.ul`
+  & > li {
+    margin-bottom: 10px;
+  }
+
+  & > li:first-of-type {
+    margin-top: 10px;
+  }
+
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Li = styled.li``;
+const TeamPartName = styled.div`
+  font-size: 16px;
+  text-decoration: none;
+  color: white;
 `;
