@@ -10,7 +10,11 @@ export default async function page() {
     <Container>
       <Title>{'Welcome'}</Title>
       <Middle>
-        <User>{'이름'}</User>
+        <div className="parent">
+          <div className="child">
+            <User>{'이름'}</User>
+          </div>
+        </div>
         <Vote src={vote.src} />
       </Middle>
       <Bottom>
@@ -22,12 +26,34 @@ export default async function page() {
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  .parent {
+    height: 3em;
+    overflow-y: hidden;
+    display: block;
+  }
+  .child {
+    font-size: 3em;
+    font-weight: bold;
+    line-height: 1;
+    animation-name: grow;
+    animation-duration: 1s;
+  }
+
+  @keyframes grow {
+    from {
+      transform: translateY(3em);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+`;
 const Bottom = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 120px;
 `;
 const Title = styled.div`
   white-space: pre-line;
@@ -44,10 +70,11 @@ const User = styled.div`
   margin-left: 60px;
 `;
 const Vote = styled.img`
+  position: absolute;
   width: 95px;
   height: 95px;
   filter: drop-shadow(6px 6px 4px rgba(0, 0, 0, 80%));
-  margin: 30px 0 0 80px;
+  margin: 30px 0 0 230px;
   opacity: 40%;
 `;
 const Middle = styled.div`
