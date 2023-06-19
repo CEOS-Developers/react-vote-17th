@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 function Check({ content }: any) {
   return (
-    <Link href={content}>
+    <Link href={`${content}`}>
       <Circle>
         <img className="check" src={check.src} />
       </Circle>

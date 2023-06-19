@@ -13,11 +13,11 @@ function vote() {
       <Line />
       <VoteForm>
         <VoteName>{'파트장 투표'}</VoteName>
-        <Check content="/part" />
+        <Check content="/vote/part" />
       </VoteForm>
       <VoteForm>
         <VoteName>{'데모데이 투표'}</VoteName>
-        <Check content="/demo" />
+        <Check content="/vote/demo" />
       </VoteForm>
       <div className="foot">
         <Footer />

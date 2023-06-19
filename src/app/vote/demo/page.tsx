@@ -23,7 +23,7 @@ function page() {
       <VoteForm>
         <VoteName>{'데모데이 투표'}</VoteName>
         <div className="button">
-          <Check content="/part" />
+          <Check contnet="/vote"/>
           <Result />
         </div>
       </VoteForm>

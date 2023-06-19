@@ -23,14 +23,14 @@ function page() {
         <VoteForm>
           <VoteName>{'FRONT-END \n 파트장 투표'}</VoteName>
           <div className="button">
-            <Check content="/part" />
+            <Check content="" />
             <Result />
           </div>
         </VoteForm>
         <VoteForm>
           <VoteName>{'BACK-END \n 파트장 투표'}</VoteName>
           <div className="button">
-            <Check content="/demo" />
+            <Check content="" />
             <Result />
           </div>
         </VoteForm>
