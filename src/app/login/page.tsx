@@ -24,7 +24,9 @@ export default async function page() {
           <Content type="password" />
         </Input>
         <LoginBtn>
-          <Sign_button content={'Login'} />
+          <Link href={'/start'}>
+            <Sign_button content={'Login'} />
+          </Link>
         </LoginBtn>
       </Info>
     </Container>
