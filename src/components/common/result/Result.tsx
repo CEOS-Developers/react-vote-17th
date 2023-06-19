@@ -19,6 +19,7 @@ const Show = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
 
   &:hover {
     background-color: #ffd954;

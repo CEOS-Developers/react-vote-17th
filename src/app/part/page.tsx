@@ -13,7 +13,7 @@ function page() {
   return (
     <Container>
       <Head>
-        <Link href={'/main'}>
+        <Link href={'/vote'}>
           <Arrow src={arrow.src} />
         </Link>
         <Title content="파트장 투표" />
