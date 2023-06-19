@@ -34,5 +34,6 @@ const Button = styled.div`
     text-decoration-line: none;
     justify-content: center;
     margin-bottom: 5px;
+    text-decoration-line: none;
   }
 `;

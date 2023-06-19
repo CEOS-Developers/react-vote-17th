@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import vote from '@/assets/images/vote.png';
 import Link from 'next/link';
+import Sign_button from '@/components/common/Sign_button';
 
 export default async function page() {
   return (
@@ -11,9 +12,7 @@ export default async function page() {
       <Vote src={vote.src} />
       <Bottom>
         <Link href={'/login'}>
-          <Button>
-            <div className="join">{'Join us'}</div>
-          </Button>
+          <Sign_button content={'Join us'} />
         </Link>
         <Link href={'/register'}>
           <Sign>{'Sign up as a member'}</Sign>
@@ -41,26 +40,6 @@ const Vote = styled.img`
   height: 95px;
   filter: drop-shadow(6px 6px 4px rgba(0, 0, 0, 30%));
   margin: 0 0 0 65px;
-`;
-const Button = styled.div`
-  display: flex;
-  background-color: #000000;
-  width: 250px;
-  height: 50px;
-  margin-top: 85px;
-  box-shadow: 6.5px 6.5px 6px rgba(0, 0, 0, 20%);
-  border-radius: 50px;
-
-  &:hover {
-    background-color: #898987;
-  }
-
-  .join {
-    color: #ffffff;
-    margin: 12px 0 0 100px;
-    font-size: 18px;
-    text-decoration-line: none;
-  }
 `;
 const Sign = styled.div`
   color: #000000;
