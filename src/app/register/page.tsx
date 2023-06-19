@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import arrow from '@/assets/images/arrow.svg';
 import arrows from '@/assets/images/arrows.svg';
 import Link from 'next/link';
+import Sign_button from '@/components/common/Sign_button';
 
 export default async function page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -102,13 +103,13 @@ export default async function page() {
           </TeamPart>
           <Content className="Team_Part" />
         </Input>
-        <Button
+        <div
           onClick={() =>
             alert('You have successfully registered as a member!!!')
           }
         >
-          <div className="join">{'Sign up'}</div>
-        </Button>
+          <Sign_button content={'Register'} />
+        </div>
       </Info>
     </Container>
   );
