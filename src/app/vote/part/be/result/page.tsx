@@ -16,6 +16,7 @@ function page() {
         <Team>
           <SelectPerson team="Repick" name="서찬혁" />
           <SelectPerson team="Repick" name="서혜준" />
+          {/* SelectPerson 컴포넌트는 api 가져올 땐 불필요 */}
         </Team>
         <Team>
           <SelectPerson team="Dan-support" name="몰라" />

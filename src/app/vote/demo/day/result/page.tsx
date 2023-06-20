@@ -15,6 +15,7 @@ function page() {
       <SelectPersonWrapper>
         <Team>
           <SelectTeam team="Repick" />
+          {/* SelectTeam 컴포넌트는 api 가져올 땐 불필요 */}
         </Team>
         <Team>
           <SelectTeam team="Dan-support" />
