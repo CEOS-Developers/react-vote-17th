@@ -7,9 +7,13 @@ import SelectMenuResult from '@/components/vote/SelectMenuResult';
 function page() {
   return (
     <Container>
-      <Header content = "데모데이 투표" href = "/vote" />
+      <Header content="데모데이 투표" href="/vote" />
       <Line />
-      <SelectMenuResult content = "데모데이 투표" href = "" />
+      <SelectMenuResult
+        content="데모데이 투표"
+        href="/vote/demo/day"
+        resultHref="/vote/demo/day/result"
+      />
     </Container>
   );
 }
