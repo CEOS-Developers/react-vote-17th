@@ -25,7 +25,7 @@ const Circle = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right : 20px;
+  margin-right: 20px;
 
   .check {
     display: none;
@@ -33,11 +33,13 @@ const Circle = styled.button`
 
   &:hover {
     background-color: #ffd954;
+    transition: 0.4s;
   }
 
   &:hover .check {
     width: 30px;
     height: 30px;
     display: block;
+    transition: 0.4s;
   }
 `;

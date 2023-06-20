@@ -10,36 +10,36 @@ import Sign_button from '@/components/register/Sign_button';
 export default function page() {
   const [isTeamOpen, setIsTeamOpen] = useState(false);
   const [isPartOpen, setIsPartOpen] = useState(false);
-  const [selectedTeam , setSelectedTeam] = useState("");
-  const [selectedPart , setSelectedPart] = useState("");
+  const [selectedTeam, setSelectedTeam] = useState('');
+  const [selectedPart, setSelectedPart] = useState('');
   const teams = [
-    {key : 1, value : "Repick"},
-    {key : 2, value : "Dan-support"},
-    {key : 3, value : "BariBari"},
-    {key : 4, value : "Therapease"},
-    {key : 5, value : "Hooking"},
+    { key: 1, value: 'Repick' },
+    { key: 2, value: 'Dan-support' },
+    { key: 3, value: 'BariBari' },
+    { key: 4, value: 'Therapease' },
+    { key: 5, value: 'Hooking' },
   ];
-  
+
   const parts = [
-    {key : 1, value : "FE"},
-    {key : 2, value : "BE"},
-    {key : 3, value : "DE"},
-    {key : 4, value : "PM"},
-  ]
-  
+    { key: 1, value: 'FE' },
+    { key: 2, value: 'BE' },
+    { key: 3, value: 'DE' },
+    { key: 4, value: 'PM' },
+  ];
+
   const teamOpenHandler = () => {
     setIsTeamOpen(!isTeamOpen);
   };
   const partOpenHandler = () => {
     setIsPartOpen(!isPartOpen);
   };
-  
+
   const selectTeamHandler = (value: React.SetStateAction<string>) => {
     setSelectedTeam(value);
-  }
+  };
   const selectPartHandler = (value: React.SetStateAction<string>) => {
     setSelectedPart(value);
-  }
+  };
   return (
     <Container>
       <Head>
@@ -73,23 +73,36 @@ export default function page() {
           <Title>{'Team / Part'}</Title>
           <SelectWrapper>
             <div onClick={teamOpenHandler}>
-              <Arrows src={arrows.src}/>
-              <Content className="Team_Part" disabled value = {selectedTeam}/>
-              <TeamPart isdropped={isTeamOpen ? "true" : "false"}>
+              <Arrows src={arrows.src} />
+              <Content className="Team_Part" disabled value={selectedTeam} />
+              <TeamPart isdropped={isTeamOpen ? 'true' : 'false'}>
                 <Ul>
-                {teams.map((team) => (
-                  <Li key={team.key}  onClick={() => selectTeamHandler(team.value)}>{team.value}</Li>
-                ))}
+                  {teams.map((team) => (
+                    <Li
+                      key={team.key}
+                      onClick={() => selectTeamHandler(team.value)}
+                    >
+                      {team.value}
+                    </Li>
+                  ))}
                 </Ul>
               </TeamPart>
             </div>
             <div onClick={partOpenHandler}>
-              <Arrows src={arrows.src} onClick={partOpenHandler}/>
-              <Content className="Team_Part" disabled value = {selectedPart}/>
-              <TeamPart isdropped={isPartOpen ? "true" : "false"} className = "part">
+              <Arrows src={arrows.src} onClick={partOpenHandler} />
+              <Content className="Team_Part" disabled value={selectedPart} />
+              <TeamPart
+                isdropped={isPartOpen ? 'true' : 'false'}
+                className="part"
+              >
                 <Ul>
                   {parts.map((part) => (
-                    <Li key={part.key} onClick={() => selectPartHandler(part.value)}>{part.value}</Li>
+                    <Li
+                      key={part.key}
+                      onClick={() => selectPartHandler(part.value)}
+                    >
+                      {part.value}
+                    </Li>
                   ))}
                 </Ul>
               </TeamPart>
@@ -157,7 +170,7 @@ const TeamPart = styled.div<{ isdropped: string }>`
   text-align: center;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-  left : 29%;
+  left: 29%;
   opacity: 0;
   visibility: hidden;
   transform: translate(-50%, -20px);
@@ -167,7 +180,7 @@ const TeamPart = styled.div<{ isdropped: string }>`
     content: '';
     height: 0;
     width: 0;
-    top : 0;
+    top: 0;
     position: absolute;
     transform: translate(-50%, -50%);
     border: 12px solid transparent;
@@ -178,7 +191,7 @@ const TeamPart = styled.div<{ isdropped: string }>`
     left: 79%;
   }
   ${({ isdropped }) =>
-    isdropped == "true" &&
+    isdropped == 'true' &&
     css`
       opacity: 1;
       visibility: visible;
@@ -187,12 +200,12 @@ const TeamPart = styled.div<{ isdropped: string }>`
 `;
 
 const SelectWrapper = styled.div`
-  position : relative;
-  display : flex;
-`
+  position: relative;
+  display: flex;
+`;
 const Ul = styled.ul`
   & > li:first-of-type {
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
   list-style-type: none;
@@ -205,15 +218,12 @@ const Ul = styled.ul`
 `;
 
 const Li = styled.li`
-  width : 100%;
-  padding-bottom : 10px;
-  padding-top : 10px;
+  width: 100%;
+  padding-bottom: 5px;
+  padding-top: 5px;
   &:hover {
-    background-color : #ffd954;
+    background-color: #ffd954;
   }
-`;
-const TeamPartName = styled.div`
-  font-size: 16px;
-  text-decoration: none;
-  color: white;
+  font-size: 13px;
+  font-weight: bold;
 `;

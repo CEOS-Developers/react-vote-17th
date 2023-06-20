@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Box from '@/assets/images/ballotBox.svg';
 import Paper from '@/assets/images/ballotPaper.svg';
-import VotingArrow from '@/assets/images/votingArrow.svg';
 
 function BoxEvent() {
   return (
@@ -12,7 +11,6 @@ function BoxEvent() {
           <BallotPaper src={Paper.src} />
         </BallotPaperAnimation>
       </BallotBoxContainer>
-      {/* <Arrow src={VotingArrow.src} /> */}
       <BallotBox src={Box.src} />
     </>
   );
@@ -22,12 +20,12 @@ export default BoxEvent;
 
 const BallotBoxContainer = styled.div`
   position: relative;
-  width : 100%;
-  margin-top : 50px;
+  width: 100%;
+  margin-top: 50px;
 `;
 
 const BallotPaperAnimation = styled.div`
-  animation: ballotPaperAnimation 1s ease-in-out forwards;
+  animation: ballotPaperAnimation 1.5s ease-in-out forwards;
   position: absolute;
   top: 0;
   left: 45%;
@@ -38,7 +36,7 @@ const BallotPaperAnimation = styled.div`
     }
     100% {
       transform: translateY(100%);
-      opacity : 0;
+      opacity: 0;
     }
   }
 `;
@@ -46,11 +44,6 @@ const BallotPaperAnimation = styled.div`
 const BallotPaper = styled.img`
   width: 40px;
   margin-top: 60px;
-`;
-
-const Arrow = styled.img`
-  width: 15px;
-  margin-top: 10px;
 `;
 
 const BallotBox = styled.img`
