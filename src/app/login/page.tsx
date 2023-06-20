@@ -24,7 +24,12 @@ export default async function page() {
           <Content type="password" />
         </Input>
         <LoginBtn>
-          <Link href={'/start'}>
+          <Link
+            href={'/start'}
+            style={{
+              textDecoration: 'none',
+            }}
+          >
             <Sign_button content={'Login'} />
           </Link>
         </LoginBtn>

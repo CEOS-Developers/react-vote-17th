@@ -18,7 +18,12 @@ export default async function page() {
         <Vote src={vote.src} />
       </Middle>
       <Bottom>
-        <Link href={'/vote'}>
+        <Link
+          href={'/vote'}
+          style={{
+            textDecoration: 'none',
+          }}
+        >
           <Sign_button content={'Start'} />
         </Link>
       </Bottom>

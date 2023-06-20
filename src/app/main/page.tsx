@@ -11,7 +11,12 @@ export default async function page() {
       <Title>{'CEOS \n Election'}</Title>
       <Vote src={vote.src} />
       <Bottom>
-        <Link href={'/login'}>
+        <Link
+          href={'/login'}
+          style={{
+            textDecoration: 'none',
+          }}
+        >
           <Sign_button content={'Join us'} />
         </Link>
         <Link href={'/register'}>
