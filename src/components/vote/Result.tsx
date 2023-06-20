@@ -11,14 +11,13 @@ function Result() {
 export default Result;
 
 const Show = styled.button`
-  width: 90px;
-  height: 40px;
   background-color: #d9d9d9;
-  border-radius: 48%;
+  border-radius: 20px;
   border: 2px solid #000000;
   font-weight: bold;
-  margin-right : 20px;
-  margin-top : 10px;
+  margin-right: 20px;
+  margin-top: 14px;
+  padding: 8px;
 
   &:hover {
     background-color: #ffd954;
