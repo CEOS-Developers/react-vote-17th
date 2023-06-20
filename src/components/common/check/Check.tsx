@@ -25,6 +25,7 @@ const Circle = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right : 20px;
 
   .check {
     display: none;

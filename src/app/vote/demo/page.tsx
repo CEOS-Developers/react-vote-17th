@@ -27,10 +27,6 @@ function page() {
           <Result />
         </div>
       </VoteForm>
-
-      <div className="foot">
-        <Footer />
-      </div>
     </Container>
   );
 }
@@ -44,10 +40,6 @@ const Container = styled.div`
 
   .vote {
     margin-top: 30px;
-  }
-
-  .foot {
-    margin-top: 200px;
   }
 `;
 const Head = styled.div`

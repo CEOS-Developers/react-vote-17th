@@ -21,3 +21,14 @@ body {
   border-radius: 35px;
   box-shadow: 6.5px 6.5px 6px rgba(0, 0, 0, 20%);
 }
+
+.WrapperVote{
+  height : 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.foot{
+  text-align : center;
+  margin-top : auto;
+}
