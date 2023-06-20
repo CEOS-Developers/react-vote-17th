@@ -16,10 +16,9 @@ const Show = styled.button`
   background-color: #d9d9d9;
   border-radius: 48%;
   border: 2px solid #000000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-weight: bold;
+  margin-right : 20px;
+  margin-top : 10px;
 
   &:hover {
     background-color: #ffd954;

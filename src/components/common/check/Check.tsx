@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 function Check({ content }: any) {
   return (
-    <Link href={content}>
+    <Link href={`${content}`}>
       <Circle>
         <img className="check" src={check.src} />
       </Circle>
@@ -25,6 +25,7 @@ const Circle = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right : 20px;
 
   .check {
     display: none;

@@ -13,15 +13,12 @@ function vote() {
       <Line />
       <VoteForm>
         <VoteName>{'파트장 투표'}</VoteName>
-        <Check content="/part" />
+        <Check content="/vote/part" />
       </VoteForm>
       <VoteForm>
         <VoteName>{'데모데이 투표'}</VoteName>
-        <Check content="/demo" />
+        <Check content="/vote/demo" />
       </VoteForm>
-      <div className="foot">
-        <Footer />
-      </div>
     </Container>
   );
 }
@@ -32,10 +29,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  .foot {
-    margin-top: 135px;
-  }
 `;
 const VoteForm = styled.div`
   width: 300px;
@@ -44,6 +37,7 @@ const VoteForm = styled.div`
   border: 3px solid #000000;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-top: 70px;
 `;
 const VoteName = styled.div`

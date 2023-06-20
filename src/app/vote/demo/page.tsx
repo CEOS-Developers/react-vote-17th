@@ -23,14 +23,10 @@ function page() {
       <VoteForm>
         <VoteName>{'데모데이 투표'}</VoteName>
         <div className="button">
-          <Check content="/part" />
+          <Check contnet="/vote"/>
           <Result />
         </div>
       </VoteForm>
-
-      <div className="foot">
-        <Footer />
-      </div>
     </Container>
   );
 }
@@ -44,10 +40,6 @@ const Container = styled.div`
 
   .vote {
     margin-top: 30px;
-  }
-
-  .foot {
-    margin-top: 200px;
   }
 `;
 const Head = styled.div`

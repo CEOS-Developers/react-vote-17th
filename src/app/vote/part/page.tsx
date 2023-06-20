@@ -23,20 +23,17 @@ function page() {
         <VoteForm>
           <VoteName>{'FRONT-END \n 파트장 투표'}</VoteName>
           <div className="button">
-            <Check content="/part" />
+            <Check content="" />
             <Result />
           </div>
         </VoteForm>
         <VoteForm>
           <VoteName>{'BACK-END \n 파트장 투표'}</VoteName>
           <div className="button">
-            <Check content="/demo" />
+            <Check content="" />
             <Result />
           </div>
         </VoteForm>
-      </div>
-      <div className="foot">
-        <Footer />
       </div>
     </Container>
   );
@@ -51,10 +48,6 @@ const Container = styled.div`
 
   .vote {
     margin-top: 30px;
-  }
-
-  .foot {
-    margin-top: 70px;
   }
 `;
 const Head = styled.div`
@@ -72,6 +65,7 @@ const VoteForm = styled.div`
   border: 3px solid #000000;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-top: 30px;
   .button {
     display: flex;
