@@ -1,11 +1,14 @@
 'use client';
 import React from 'react';
 import styled from 'styled-components';
-import check from '@/assets/images/check.png';
 import Link from 'next/link';
 
-function Result() {
-  return <Show>{'결과 보기'}</Show>;
+function Result({ content }: any) {
+  return (
+    <Link href={`${content}`}>
+      <Show>{'결과 보기'}</Show>
+    </Link>
+  );
 }
 
 export default Result;

@@ -7,9 +7,11 @@ import Result from '@/components/vote/Result';
 function SelectMenuResult({
   content,
   href,
+  resultHref,
 }: {
   content: string;
   href: string;
+  resultHref: string;
 }) {
   const lines = content.split('br');
   return (
@@ -25,7 +27,7 @@ function SelectMenuResult({
         </VoteName>
         <CheckWrapper>
           <Check content={href} />
-          <Result />
+          <Result content={resultHref} />
         </CheckWrapper>
       </VoteForm>
     </>

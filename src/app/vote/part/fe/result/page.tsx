@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
-import Header from '@/components/common/Header';
+import Title from '@/components/common/Title';
 import SelectPerson from '@/components/vote/SelectPerson';
 import Button from '@/components/vote/Button';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import Link from 'next/link';
 function page() {
   return (
     <Container>
-      <Header content="FE 파트장 투표" href="/vote/part" />
+      <Title content="FE 파트장 투표 결과" />
       <Line />
       <SelectPersonWrapper>
         <Team>
@@ -34,8 +34,8 @@ function page() {
           <SelectPerson team="Hooking" name="장효신" />
         </Team>
       </SelectPersonWrapper>
-      <Link href={'/vote/part/fe/voting'}>
-        <Button content="제출하기" />
+      <Link href={'/vote'}>
+        <Button content="돌아가기" />
       </Link>
     </Container>
   );
