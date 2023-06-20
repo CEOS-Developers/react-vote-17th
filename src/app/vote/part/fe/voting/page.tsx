@@ -3,19 +3,15 @@ import Title from '@/components/common/Title';
 import Button from '@/components/vote/Button';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
-import Box from '@/assets/images/ballotBox.svg';
-import Paper from '@/assets/images/ballotPaper.svg';
-import VotingArrow from '@/assets/images/votingArrow.svg';
 import Link from 'next/link';
+import BoxEvent from '@/components/vote/BoxEvent';
 
 function page() {
   return (
     <Container>
       <Title content="FE 파트장 투표" />
       <Line />
-      <BallotPaper src={Paper.src} />
-      <Arrow src={VotingArrow.src} />
-      <BallotBox src={Box.src} />
+      <BoxEvent />
       <Link href={'/vote/part/fe/result'}>
         <div className="btn">
           <Button content="결과보기" />
