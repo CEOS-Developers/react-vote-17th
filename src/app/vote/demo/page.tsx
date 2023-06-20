@@ -1,25 +1,15 @@
 'use client';
 import React from 'react';
 import styled from 'styled-components';
-import Title from '@/components/common/title/Title';
-import Line from '@/components/common/line/Line';
-import Check from '@/components/common/check/Check';
-import Footer from '@/components/common/footer/Footer';
-import arrow from '@/assets/images/arrow.svg';
-import Link from 'next/link';
-import Result from '@/components/common/result/Result';
-
+import Line from '@/components/common/Line';
+import Check from '@/components/vote/Check';
+import Result from '@/components/vote/Result';
+import Header from '@/components/common/Header';
 function page() {
   return (
     <Container>
-      <Head>
-        <Link href={'/vote'}>
-          <Arrow src={arrow.src} />
-        </Link>
-        <Title content="데모데이 투표" />
-      </Head>
+      <Header content = "데모데이 투표" href = "/vote" />
       <Line />
-
       <VoteForm>
         <VoteName>{'데모데이 투표'}</VoteName>
         <div className="button">

@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import arrow from '@/assets/images/arrow.svg';
 import arrows from '@/assets/images/arrows.svg';
 import Link from 'next/link';
-import Sign_button from '@/components/common/Sign_button';
+import Sign_button from '@/components/register/Sign_button';
 
 export default async function page() {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,23 +1,15 @@
 'use client';
 import React from 'react';
 import styled from 'styled-components';
-import Title from '@/components/common/title/Title';
-import Line from '@/components/common/line/Line';
-import Check from '@/components/common/check/Check';
-import Footer from '@/components/common/footer/Footer';
-import arrow from '@/assets/images/arrow.svg';
-import Link from 'next/link';
-import Result from '@/components/common/result/Result';
+import Line from '@/components/common/Line';
+import Check from '@/components/vote/Check';
+import Result from '@/components/vote/Result';
+import Header from '@/components/common/Header';
 
 function page() {
   return (
     <Container>
-      <Head>
-        <Link href={'/vote'}>
-          <Arrow src={arrow.src} />
-        </Link>
-        <Title content="파트장 투표" />
-      </Head>
+      <Header content = "파트장 투표" href = "/vote"/>
       <Line />
       <div className="vote">
         <VoteForm>
@@ -50,14 +42,7 @@ const Container = styled.div`
     margin-top: 30px;
   }
 `;
-const Head = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const Arrow = styled.img`
-  width: 20px;
-  margin-top: 30px;
-`;
+
 const VoteForm = styled.div`
   width: 300px;
   height: 150px;

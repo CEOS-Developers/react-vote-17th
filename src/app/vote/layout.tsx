@@ -1,5 +1,5 @@
 import '../globals.css';
-import Footer from '@/components/common/footer/Footer';
+import Footer from '@/components/common/Footer';
 export default function VoteLayout({
   children,
 }: {
