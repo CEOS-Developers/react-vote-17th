@@ -8,11 +8,17 @@ import SelectMenuResult from '@/components/vote/SelectMenuResult';
 function page() {
   return (
     <Container>
-      <Header content = "파트장 투표" href = "/vote"/>
+      <Header content="파트장 투표" href="/vote" />
       <Line />
       <SelectMenuResultWrapper>
-        <SelectMenuResult content = "FRONT-END br 파트장 투표" href = "" />
-        <SelectMenuResult content = "BACK-END br 파트장 투표" href = "" />
+        <SelectMenuResult
+          content="FRONT-END br 파트장 투표"
+          href="/vote/part/fe"
+        />
+        <SelectMenuResult
+          content="BACK-END br 파트장 투표"
+          href="/vote/part/be"
+        />
       </SelectMenuResultWrapper>
     </Container>
   );
@@ -26,5 +32,4 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const SelectMenuResultWrapper = styled.div`
-`
+const SelectMenuResultWrapper = styled.div``;

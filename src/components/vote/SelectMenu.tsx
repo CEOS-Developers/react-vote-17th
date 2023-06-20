@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Check from '@/components/vote/Check';
 
-function SelectMenu({ content,href }: {content : string, href : string}) {
+function SelectMenu({ content, href }: { content: string; href: string }) {
   return (
     <>
       <VoteForm>
@@ -17,7 +17,7 @@ function SelectMenu({ content,href }: {content : string, href : string}) {
 export default SelectMenu;
 const VoteForm = styled.div`
   width: 300px;
-  height: 90px;
+  height: 85px;
   background-color: #f5f5f5;
   border: 3px solid #000000;
   display: flex;
