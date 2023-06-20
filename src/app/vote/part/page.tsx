@@ -14,10 +14,12 @@ function page() {
         <SelectMenuResult
           content="FRONT-END br 파트장 투표"
           href="/vote/part/fe"
+          resultHref="/vote/part/fe/result"
         />
         <SelectMenuResult
           content="BACK-END br 파트장 투표"
           href="/vote/part/be"
+          resultHref="/vote/part/be/result"
         />
       </SelectMenuResultWrapper>
     </Container>

@@ -3,38 +3,33 @@ import React from 'react';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
-import SelectPerson from '@/components/vote/SelectPerson';
+import SelectTeam from '@/components/vote/SelectTeam';
 import Button from '@/components/vote/Button';
 import Link from 'next/link';
 
 function page() {
   return (
     <Container>
-      <Header content="FE 파트장 투표" href="/vote/part" />
+      <Header content="데모데이 투표" href="/vote/demo" />
       <Line />
       <SelectPersonWrapper>
         <Team>
-          <SelectPerson team="Repick" name="배성준" />
-          <SelectPerson team="Repick" name="이예지" />
+          <SelectTeam team="Repick" />
         </Team>
         <Team>
-          <SelectPerson team="Dan-support" name="노수진" />
-          <SelectPerson team="Dan-support" name="신유진" />
+          <SelectTeam team="Dan-support" />
         </Team>
         <Team>
-          <SelectPerson team="BariBari" name="오예린" />
-          <SelectPerson team="BariBari" name="최민주" />
+          <SelectTeam team="BariBari" />
         </Team>
         <Team>
-          <SelectPerson team="Therapease" name="권가은" />
-          <SelectPerson team="Therapease" name="김서연" />
+          <SelectTeam team="Therapease" />
         </Team>
         <Team>
-          <SelectPerson team="Hooking" name="김문기" />
-          <SelectPerson team="Hooking" name="장효신" />
+          <SelectTeam team="Hooking" />
         </Team>
       </SelectPersonWrapper>
-      <Link href={'/vote/part/fe/voting'}>
+      <Link href={'/vote/demo/day/voting'}>
         <Button content="제출하기" />
       </Link>
     </Container>

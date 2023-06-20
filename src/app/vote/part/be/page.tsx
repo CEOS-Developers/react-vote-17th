@@ -5,6 +5,7 @@ import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
 import SelectPerson from '@/components/vote/SelectPerson';
 import Button from '@/components/vote/Button';
+import Link from 'next/link';
 
 function page() {
   return (
@@ -33,7 +34,9 @@ function page() {
           <SelectPerson team="Hooking" name="몰라" />
         </Team>
       </SelectPersonWrapper>
-      <Button content="제출하기" />
+      <Link href={'/vote/part/be/voting'}>
+        <Button content="제출하기" />
+      </Link>
     </Container>
   );
 }
