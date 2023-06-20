@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import arrow from '@/assets/images/arrow.svg';
 import Link from 'next/link';
-import Sign_button from '@/components/common/Sign_button';
+import Sign_button from '@/components/register/Sign_button';
 
 export default async function page() {
   return (
