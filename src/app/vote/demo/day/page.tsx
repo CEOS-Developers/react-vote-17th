@@ -46,10 +46,7 @@ function page() {
       <SelectPersonWrapper>
         {teams.map((team) => (
           <FormWrapper key={team.key}>
-            <VoteForm
-              onClick={() => selectTeamHandler(team.value)}
-              // change={team.selected}
-            >
+            <VoteForm onClick={() => selectTeamHandler(team.value)}>
               <VoteTeam>{team.value}</VoteTeam>
             </VoteForm>
             {team.selected && (
