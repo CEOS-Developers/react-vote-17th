@@ -5,6 +5,7 @@ import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
 import Button from '@/components/vote/Button';
 import Link from 'next/link';
+import {BsCheckCircle} from 'react-icons/bs';
 
 function page() {
   const [selectedTeam, setSelectedTeam] = useState('');
@@ -17,14 +18,22 @@ function page() {
     { key: 4, value: 'Therapease', selected: false },
     { key: 5, value: 'Hooking', selected: false },
   ]);
-
-  const selectTeamHandler = (value: React.SetStateAction<string>) => {
-    setSelectedTeam(value);
-    setTeams(
-      teams.map((user) =>
-        user.value === value ? { ...user, selected: !user.selected } : user
-      )
-    );
+  const selectTeamHandler = (value : string) => {
+    if (selectedTeam === value) {
+      setSelectedTeam('');
+      setTeams((prevState) =>
+        prevState.map((team) =>
+          team.value === value ? { ...team, selected: false } : team
+        )
+      );
+    } else {
+      setSelectedTeam(value);
+      setTeams((prevState) =>
+        prevState.map((team) =>
+          team.value === value ? { ...team, selected: true } : { ...team, selected: false }
+        )
+      );
+    }
   };
 
   return (
@@ -33,13 +42,18 @@ function page() {
       <Line />
       <SelectPersonWrapper>
         {teams.map((team) => (
-          <VoteForm
-            key={team.key}
-            onClick={() => selectTeamHandler(team.value)}
-            change={team.selected}
-          >
-            <VoteTeam>{team.value}</VoteTeam>
-          </VoteForm>
+          <FormWrapper key={team.key}>
+            <VoteForm
+              onClick={() => selectTeamHandler(team.value)}
+              change={team.selected}
+            >
+              <VoteTeam>{team.value}</VoteTeam>
+            </VoteForm>
+            {team.selected && 
+              <CoverTeam>
+                <BsCheckCircle size="40"/>
+              </CoverTeam>}
+          </FormWrapper>  
         ))}
       </SelectPersonWrapper>
       <Link href={'/vote/demo/day/voting'}>
@@ -76,7 +90,25 @@ const VoteForm = styled.div<{ change: boolean }>`
     `}
 }
 `;
+
+const FormWrapper = styled.div`
+  position :relative;
+`
 const VoteTeam = styled.div`
   font-size: 19px;
   font-weight: bold;
 `;
+
+const CoverTeam = styled.div`
+  width: 280px;
+  height: 55px;
+  border: 3px solid #000000;
+  background-color: yellow;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
