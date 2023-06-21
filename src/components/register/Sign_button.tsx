@@ -2,11 +2,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Sign_button({ content }: { content: String }) {
+function Sign_button({id,password} : {id : string, password : string}) {
+  const loginHandler = () => {
+    
+    // id랑 password를 api에 넘기면 됨
+  }
   return (
-    <Button>
-      <div className="join">{content}</div>
-    </Button>
+    <Button onClick = {loginHandler}>Login</Button>
   );
 }
 

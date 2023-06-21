@@ -1,11 +1,21 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import arrow from '@/assets/images/arrow.svg';
 import Link from 'next/link';
 import Sign_button from '@/components/register/Sign_button';
 
-export default async function page() {
+export default function page() {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  console.log("Test");
+  const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setId(e.target.value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
   return (
     <Container>
       <Head>
@@ -17,21 +27,14 @@ export default async function page() {
       <Info>
         <Input>
           <Title>{'ID'}</Title>
-          <Content />
+          <Content value={id} onChange={handleIdChange} />
         </Input>
         <Input>
           <Title>{'Password'}</Title>
-          <Content type="password" />
+          <Content type="password" value={password} onChange={handlePasswordChange} />
         </Input>
         <LoginBtn>
-          <Link
-            href={'/start'}
-            style={{
-              textDecoration: 'none',
-            }}
-          >
-            <Sign_button content={'Login'} />
-          </Link>
+          <Sign_button id = {id} password = {password}/>  
         </LoginBtn>
       </Info>
     </Container>
