@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import arrow from '@/assets/images/arrow.svg';
 import Link from 'next/link';
-import Sign_button from '@/components/register/Sign_button';
+import LoginButton from '@/components/login/LoginBtn';
 
 export default function page() {
   const [id, setId] = useState("");
@@ -34,7 +34,7 @@ export default function page() {
           <Content type="password" value={password} onChange={handlePasswordChange} />
         </Input>
         <LoginBtn>
-          <Sign_button id = {id} password = {password}/>  
+          <LoginButton id = {id} password = {password}/>  
         </LoginBtn>
       </Info>
     </Container>

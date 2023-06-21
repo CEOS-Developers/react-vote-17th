@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import vote from '@/assets/images/vote.png';
 import Link from 'next/link';
-import Sign_button from '@/components/register/Sign_button';
+import LinkBtn from '@/components/common/LinkBtn';
 
 export default async function page() {
   return (
@@ -17,7 +17,7 @@ export default async function page() {
             textDecoration: 'none',
           }}
         >
-          <Sign_button content={'Join us'} />
+          <LinkBtn content = "Join us"/>
         </Link>
         <Link href={'/register'}>
           <Sign>{'Sign up as a member'}</Sign>

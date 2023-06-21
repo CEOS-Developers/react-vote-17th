@@ -8,10 +8,37 @@ import Link from 'next/link';
 import Sign_button from '@/components/register/Sign_button';
 
 export default function page() {
-  const [isTeamOpen, setIsTeamOpen] = useState(false);
-  const [isPartOpen, setIsPartOpen] = useState(false);
+  //회원가입 정보
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [email, setEmail] = useState("");
   const [selectedTeam, setSelectedTeam] = useState('');
   const [selectedPart, setSelectedPart] = useState('');
+  
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setId(e.target.value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+  const handlePasswordConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordConfirm(e.target.value);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  //Dropdown 관련
+  const [isTeamOpen, setIsTeamOpen] = useState(false);
+  const [isPartOpen, setIsPartOpen] = useState(false);
+  
+  //Team Part Dropdown 메뉴들
   const teams = [
     { key: 1, value: 'Repick' },
     { key: 2, value: 'Dan-support' },
@@ -51,23 +78,23 @@ export default function page() {
       <Info>
         <Input>
           <Title>{'Name'}</Title>
-          <Content />
+          <Content value={name} onChange={handleNameChange}/>
         </Input>
         <Input>
           <Title>{'ID'}</Title>
-          <Content />
+          <Content value={id} onChange={handleIdChange}/>
         </Input>
         <Input>
           <Title>{'Password'}</Title>
-          <Content type="password" />
+          <Content type="password"  value={password} onChange={handlePasswordChange}/>
         </Input>
         <Input>
           <Title>{'Password Confirm'}</Title>
-          <Content type="password" />
+          <Content type="password"  value={passwordConfirm} onChange={handlePasswordConfirmChange}/>
         </Input>
         <Input>
           <Title>{'Email'}</Title>
-          <Content />
+          <Content value={email} onChange={handleEmailChange} />
         </Input>
         <Input>
           <Title>{'Team / Part'}</Title>
@@ -109,13 +136,14 @@ export default function page() {
             </div>
           </SelectWrapper>
         </Input>
-        <div
-          onClick={() =>
-            alert('You have successfully registered as a member!!!')
-          }
-        >
-          <Sign_button content={'Register'} />
-        </div>
+        <Sign_button 
+          name = {name} 
+          id = {id} 
+          password = {password}
+          passwordConfirm = {passwordConfirm}
+          email = {email}
+          team = {selectedTeam}
+          part = {selectedPart}/>
       </Info>
     </Container>
   );
