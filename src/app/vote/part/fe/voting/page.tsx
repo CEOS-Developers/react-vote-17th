@@ -5,10 +5,12 @@ import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Link from 'next/link';
 import BoxEvent from '@/components/vote/BoxEvent';
+import Order from '@/components/common/Order';
 
 function page() {
   return (
     <Container>
+      <Order order={'2'} />
       <Title content="FE 파트장 투표" />
       <Line />
       <BoxEvent />

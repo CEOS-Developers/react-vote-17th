@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
 import SelectMenuResult from '@/components/vote/SelectMenuResult';
+import Order from '@/components/common/Order';
+
 function page() {
   return (
     <Container>
+      <Order order={'1'} />
       <Header content="데모데이 투표" href="/vote" />
       <Line />
       <SelectMenuResult

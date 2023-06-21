@@ -5,6 +5,7 @@ import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
 import Button from '@/components/vote/Button';
 import Link from 'next/link';
+import Order from '@/components/common/Order';
 
 function page() {
   const [selectedLeader, setSelectedLeader] = useState('');
@@ -27,6 +28,7 @@ function page() {
   };
   return (
     <Container>
+      <Order order={'2'} />
       <Header content="FE 파트장 투표" href="/vote/part" />
       <Line />
       <SelectPersonWrapper>

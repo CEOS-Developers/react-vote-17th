@@ -6,10 +6,12 @@ import Title from '@/components/common/Title';
 import SelectPerson from '@/components/vote/SelectPerson';
 import Button from '@/components/vote/Button';
 import Link from 'next/link';
+import Order from '@/components/common/Order';
 
 function page() {
   return (
     <Container>
+      <Order order={'3'} />
       <Title content="FE 파트장 투표 결과" />
       <Line />
       <SelectPersonWrapper>
