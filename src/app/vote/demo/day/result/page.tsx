@@ -1,36 +1,50 @@
 'use client';
-import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Title from '@/components/common/Title';
-import SelectTeam from '@/components/vote/SelectTeam';
 import Button from '@/components/vote/Button';
 import Link from 'next/link';
+import { BsCheckCircle } from 'react-icons/bs';
 import Order from '@/components/common/Order';
+import Score from '@/components/vote/Score';
 
 function page() {
+  const [selectedTeam, setSelectedTeam] = useState('');
+
+  const [teams, setTeams] = useState([
+    { key: 1, value: 'Repick', selected: false, score: 3 },
+    { key: 2, value: 'Dan-support', selected: false, score: 2 },
+    { key: 3, value: 'BariBari', selected: false, score: 2 },
+    { key: 4, value: 'Therapease', selected: false, score: 1 },
+    { key: 5, value: 'Hooking', selected: false, score: 1 },
+  ]);
+
   return (
     <Container>
       <Order order={'3'} />
       <Title content="데모데이 투표 결과" />
       <Line />
       <SelectPersonWrapper>
-        <Team>
-          <SelectTeam team="Repick" />
-          {/* SelectTeam 컴포넌트는 api 가져올 땐 불필요 */}
-        </Team>
-        <Team>
-          <SelectTeam team="Dan-support" />
-        </Team>
-        <Team>
-          <SelectTeam team="BariBari" />
-        </Team>
-        <Team>
-          <SelectTeam team="Therapease" />
-        </Team>
-        <Team>
-          <SelectTeam team="Hooking" />
-        </Team>
+        {teams.map((team) => (
+          <FormWrapper key={team.key}>
+            <VoteForm>
+              <VoteTeam>{team.value}</VoteTeam>
+            </VoteForm>
+            <Check>
+              <CoverTeam>
+                <Score score={team.score} />
+              </CoverTeam>
+            </Check>
+            {team.selected && (
+              <Check>
+                <CoverTeam>
+                  <BsCheckCircle className="check" />
+                </CoverTeam>
+              </Check>
+            )}
+          </FormWrapper>
+        ))}
       </SelectPersonWrapper>
       <Link href={'/vote'}>
         <Button content="돌아가기" />
@@ -47,9 +61,37 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const SelectPersonWrapper = styled.div``;
-const Team = styled.div`
+const SelectPersonWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   width: 280px;
-  margin-top: 13px;
+`;
+const VoteForm = styled.div`
+width: 280px;
+height: 55px;
+border: 3px solid #000000;
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: center;
+margin-top: 13px;
+background-color: #f5f5f5;
+}
+`;
+const VoteTeam = styled.div`
+  font-size: 19px;
+  font-weight: bold;
+`;
+
+const FormWrapper = styled.div`
+  position: relative;
+`;
+const Check = styled.div``;
+const CoverTeam = styled.div`
+  position: absolute;
+  margin-left: 265px;
+  z-index: 1;
+  //top: 0;
+  bottom: 0;
 `;
