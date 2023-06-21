@@ -1,11 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 function Order({ order }: { order: string }) {
   return (
     <Container>
       <BigCircle>
-        <Num>{'1'}</Num>
+        <Num1 num={order}>{'1'}</Num1>
       </BigCircle>
       <SmallCircle />
       <SmallCircle />
@@ -13,7 +13,7 @@ function Order({ order }: { order: string }) {
       <SmallCircle />
       <SmallCircle />
       <BigCircle>
-        <Num>{'2'}</Num>
+        <Num2 num={order}>{'2'}</Num2>
       </BigCircle>
       <SmallCircle />
       <SmallCircle />
@@ -21,7 +21,7 @@ function Order({ order }: { order: string }) {
       <SmallCircle />
       <SmallCircle />
       <BigCircle>
-        <Num>{'3'}</Num>
+        <Num3 num={order}>{'3'}</Num3>
       </BigCircle>
     </Container>
   );
@@ -46,6 +46,8 @@ const BigCircle = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 10px;
+  font-weight: bold;
+  font-size: 15px;
 `;
 
 const SmallCircle = styled.div`
@@ -56,7 +58,72 @@ const SmallCircle = styled.div`
   margin-right: 10px;
 `;
 
-const Num = styled.div`
+const Num1 = styled.div<{ num: string }>`
   font-weight: bold;
   font-size: 15px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  ${(props) =>
+    (props.num == '1' &&
+      css`
+        background-color: #000000;
+        color: #f5f5f5;
+      `) ||
+    (props.num == '2' &&
+      css`
+        background-color: #f5f5f5;
+      `) ||
+    (props.num == '3' &&
+      css`
+        background-color: #f5f5f5;
+      `)}
+`;
+const Num2 = styled.div<{ num: string }>`
+  font-weight: bold;
+  font-size: 15px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  ${(props) =>
+    (props.num == '1' &&
+      css`
+        background-color: #f5f5f5;
+      `) ||
+    (props.num == '2' &&
+      css`
+        background-color: #000000;
+        color: #f5f5f5;
+      `) ||
+    (props.num == '3' &&
+      css`
+        background-color: #f5f5f5;
+      `)}
+`;
+const Num3 = styled.div<{ num: string }>`
+  font-weight: bold;
+  font-size: 15px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  ${(props) =>
+    (props.num == '1' &&
+      css`
+        background-color: #f5f5f5;
+      `) ||
+    (props.num == '2' &&
+      css`
+        background-color: #f5f5f5;
+      `) ||
+    (props.num == '3' &&
+      css`
+        background-color: #000000;
+        color: #f5f5f5;
+      `)}
 `;
