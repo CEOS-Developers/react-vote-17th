@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
 import Button from '@/components/vote/Button';
@@ -10,7 +10,6 @@ import Order from '@/components/common/Order';
 
 function page() {
   const [selectedTeam, setSelectedTeam] = useState('');
-  //const [selected, setSelected] = useState<boolean>(false);
 
   const [teams, setTeams] = useState([
     { key: 1, value: 'Repick', selected: false },
@@ -49,14 +48,16 @@ function page() {
           <FormWrapper key={team.key}>
             <VoteForm
               onClick={() => selectTeamHandler(team.value)}
-              change={team.selected}
+              // change={team.selected}
             >
               <VoteTeam>{team.value}</VoteTeam>
             </VoteForm>
             {team.selected && (
-              <CoverTeam>
-                <BsCheckCircle size="40" />
-              </CoverTeam>
+              <Check>
+                <CoverTeam>
+                  <BsCheckCircle className="check" />
+                </CoverTeam>
+              </Check>
             )}
           </FormWrapper>
         ))}
@@ -77,22 +78,16 @@ const Container = styled.div`
 `;
 
 const SelectPersonWrapper = styled.div``;
-const VoteForm = styled.div<{ change: boolean }>`
+const VoteForm = styled.div`
   width: 280px;
   height: 55px;
   border: 3px solid #000000;
-  background-color: #ffe27c;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   margin-top: 13px;
-
-  ${(props) =>
-    !props.change &&
-    css`
-      background-color: #f5f5f5;
-    `}
+  background-color: #f5f5f5;
 }
 `;
 
@@ -104,11 +99,17 @@ const VoteTeam = styled.div`
   font-weight: bold;
 `;
 
+const Check = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
 const CoverTeam = styled.div`
   width: 280px;
   height: 55px;
   border: 3px solid #000000;
-  background-color: yellow;
+  background-color: #ffe27c;
   position: absolute;
   z-index: 10;
   top: 0;
@@ -116,4 +117,11 @@ const CoverTeam = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  .check {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #ffd954;
+    border-radius: 50%;
+  }
 `;
