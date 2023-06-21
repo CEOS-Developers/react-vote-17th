@@ -8,10 +8,12 @@ import SelectMenu from '@/components/vote/SelectMenu';
 function vote() {
   return (
     <Container>
-      <Title content="파트장 / 데모데이 투표" />
+      <div className="vote-leader">
+        <Title content="파트장 / 데모데이 투표" />
+      </div>
       <Line />
-      <SelectMenu content = "파트장 투표" href = "/vote/part" />
-      <SelectMenu content = "데모데이 투표" href = "/vote/demo" />
+      <SelectMenu content="파트장 투표" href="/vote/part" />
+      <SelectMenu content="데모데이 투표" href="/vote/demo" />
     </Container>
   );
 }
@@ -22,4 +24,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .vote-leader {
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
 `;

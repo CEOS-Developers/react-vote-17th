@@ -62,7 +62,6 @@ const SelectPersonWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 280px;
-  margin-top: 13px;
 `;
 const VoteForm = styled.div`
   width: 120px;

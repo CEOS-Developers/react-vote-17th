@@ -9,7 +9,7 @@ function Title({ content }: { content: String }) {
 export default Title;
 const Container = styled.div`
   margin-top: 30px;
-  padding: 30px;
+  padding-bottom: 10px;
   font-size: 25px;
   font-weight: bold;
   text-align: center;
