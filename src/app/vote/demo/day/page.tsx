@@ -5,7 +5,8 @@ import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
 import Button from '@/components/vote/Button';
 import Link from 'next/link';
-import {BsCheckCircle} from 'react-icons/bs';
+import { BsCheckCircle } from 'react-icons/bs';
+import Order from '@/components/common/Order';
 
 function page() {
   const [selectedTeam, setSelectedTeam] = useState('');
@@ -18,7 +19,7 @@ function page() {
     { key: 4, value: 'Therapease', selected: false },
     { key: 5, value: 'Hooking', selected: false },
   ]);
-  const selectTeamHandler = (value : string) => {
+  const selectTeamHandler = (value: string) => {
     if (selectedTeam === value) {
       setSelectedTeam('');
       setTeams((prevState) =>
@@ -30,7 +31,9 @@ function page() {
       setSelectedTeam(value);
       setTeams((prevState) =>
         prevState.map((team) =>
-          team.value === value ? { ...team, selected: true } : { ...team, selected: false }
+          team.value === value
+            ? { ...team, selected: true }
+            : { ...team, selected: false }
         )
       );
     }
@@ -38,6 +41,7 @@ function page() {
 
   return (
     <Container>
+      <Order order={'2'} />
       <Header content="데모데이 투표" href="/vote/demo" />
       <Line />
       <SelectPersonWrapper>
@@ -49,11 +53,12 @@ function page() {
             >
               <VoteTeam>{team.value}</VoteTeam>
             </VoteForm>
-            {team.selected && 
+            {team.selected && (
               <CoverTeam>
-                <BsCheckCircle size="40"/>
-              </CoverTeam>}
-          </FormWrapper>  
+                <BsCheckCircle size="40" />
+              </CoverTeam>
+            )}
+          </FormWrapper>
         ))}
       </SelectPersonWrapper>
       <Link href={'/vote/demo/day/voting'}>
@@ -92,8 +97,8 @@ const VoteForm = styled.div<{ change: boolean }>`
 `;
 
 const FormWrapper = styled.div`
-  position :relative;
-`
+  position: relative;
+`;
 const VoteTeam = styled.div`
   font-size: 19px;
   font-weight: bold;
@@ -111,4 +116,4 @@ const CoverTeam = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
