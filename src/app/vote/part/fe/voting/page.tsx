@@ -1,6 +1,5 @@
 'use client';
 import Title from '@/components/common/Title';
-import Button from '@/components/vote/Button';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Link from 'next/link';
@@ -16,7 +15,7 @@ function page() {
       <BoxEvent />
       <Link href={'/vote/part/fe/result'}>
         <div className="btn">
-          <Button content="결과보기" />
+          <ResultBox>{'결과보기'}</ResultBox>
         </div>
       </Link>
     </Container>
@@ -29,20 +28,30 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .btn {
     margin-top: 20px;
   }
+
+  @keyframes changeColor {
+    from {
+      background-color: #d9d9d9;
+    }
+    to {
+      background-color: #ffd954;
+    }
+  }
 `;
 
-const BallotPaper = styled.img`
-  width: 40px;
-  margin-top: 60px;
-`;
-const Arrow = styled.img`
-  width: 15px;
-  margin-top: 10px;
-`;
-const BallotBox = styled.img`
-  width: 130px;
-  margin-top: 10px;
+const ResultBox = styled.button`
+  background-color: #ffd954;
+  border-radius: 40px;
+  border: 3px solid #000000;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 25px;
+  padding: 12px 50px 12px 50px;
+
+  animation-name: changeColor;
+  animation-duration: 4s;
 `;
