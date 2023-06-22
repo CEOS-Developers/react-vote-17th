@@ -66,6 +66,7 @@ const Num1 = styled.div<{ num: string }>`
   border-radius: 50%;
   display: flex;
   justify-content: center;
+  align-items : center;
   ${(props) =>
     (props.num == '1' &&
       css`
@@ -89,6 +90,7 @@ const Num2 = styled.div<{ num: string }>`
   border-radius: 50%;
   display: flex;
   justify-content: center;
+  align-items : center;
   ${(props) =>
     (props.num == '1' &&
       css`
@@ -112,6 +114,7 @@ const Num3 = styled.div<{ num: string }>`
   border-radius: 50%;
   display: flex;
   justify-content: center;
+  align-items : center;
   ${(props) =>
     (props.num == '1' &&
       css`
