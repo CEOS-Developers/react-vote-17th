@@ -56,9 +56,11 @@ function page() {
           )
         )}
       </SelectPersonWrapper>
-      <Link href={'/vote'}>
-        <Button content="돌아가기" />
-      </Link>
+      <LinkWrapper>
+        <Link href={'/vote'}>
+          <Button content="돌아가기" />
+        </Link>
+      </LinkWrapper>
     </Container>
   );
 }
@@ -108,4 +110,8 @@ const CoverTeam = styled.div`
   z-index: 1;
   //top: 0;
   bottom: 0;
+`;
+
+const LinkWrapper = styled.div`
+  margin-top : 25px;
 `;

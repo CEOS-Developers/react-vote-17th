@@ -6,6 +6,7 @@ import Line from '@/components/common/Line';
 import Link from 'next/link';
 import BoxEvent from '@/components/vote/BoxEvent';
 import Order from '@/components/common/Order';
+import ResultBox from '@/components/vote/ResultBox';
 
 const Page = () => {
   return (
@@ -14,11 +15,9 @@ const Page = () => {
       <Title content="데모데이 투표" />
       <Line />
       <BoxEvent />
-      <Link href={'/vote/demo/day/result'}>
-        <div className="btn">
-          <ResultBox>{'결과보기'}</ResultBox>
-        </div>
-      </Link>
+      <div className="btn">
+        <ResultBox content={'/vote/demo/day/result'}/>
+      </div>
     </Container>
   );
 };
@@ -42,17 +41,4 @@ const Container = styled.div`
       background-color: #ffd954;
     }
   }
-`;
-
-const ResultBox = styled.button`
-  background-color: #ffd954;
-  border-radius: 40px;
-  border: 3px solid #000000;
-  font-weight: bold;
-  font-size: 20px;
-  margin-top: 25px;
-  padding: 12px 50px 12px 50px;
-
-  animation-name: changeColor;
-  animation-duration: 4s;
 `;

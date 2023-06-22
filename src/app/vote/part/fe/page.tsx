@@ -68,9 +68,11 @@ function page() {
           </FormWrapper>
         ))}
       </SelectPersonWrapper>
-      <Link href={'/vote/part/fe/voting'}>
-        <Button content="제출하기" />
-      </Link>
+      <LinkWrapper>
+        <Link href={'/vote/part/fe/voting'}>
+          <Button content="제출하기" />
+        </Link>
+      </LinkWrapper>
     </Container>
   );
 }
@@ -139,3 +141,7 @@ const CoverTeam = styled.div`
     border-radius: 50%;
   }
 `;
+
+const LinkWrapper = styled.div`
+  margin-top : 25px;
+`

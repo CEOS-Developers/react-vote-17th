@@ -13,8 +13,8 @@ const Show = styled.button`
   border: 3px solid #000000;
   font-weight: bold;
   font-size: 20px;
-  margin-top: 25px;
   padding: 12px 50px 12px 50px;
+  cursor : pointer;
 
   &:hover {
     background-color: #ffd954;
