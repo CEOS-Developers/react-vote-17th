@@ -9,7 +9,7 @@ import Order from '@/components/common/Order';
 import { BsCheckCircle } from 'react-icons/bs';
 import Score from '@/components/vote/Score';
 
-function page() {
+async function page() {
   const [selectedLeader, setSelectedLeader] = useState('');
 
   const [leaders, setLeaders] = useState([
@@ -24,6 +24,10 @@ function page() {
     { key: 9, name: '몰라ㄱ', team: 'Hooking', selected: false, score: 1 },
     { key: 10, name: '몰라ㄴ', team: 'Hooking', selected: false, score: 1 },
   ]);
+  
+  //api받는 부분
+  // const data = await (await fetch(process.env.API_URL + '/api/polls/part-leader/back-end/')).json();
+  // console.log(data);
   return (
     <Container>
       <Order order={'3'} />

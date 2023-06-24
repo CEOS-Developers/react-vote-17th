@@ -24,6 +24,11 @@ function page() {
     { key: 10, name: '몰라ㄴ', team: 'Hooking', selected: false },
   ]);
 
+  
+  //api받는 부분
+  // const data = await (await fetch(process.env.API_URL + '/api/polls/vote/part-leader/back-end/')).json();
+  // console.log(data);
+  
   const selectLeaderHandler = (name: React.SetStateAction<string>) => {
     if (selectedLeader === name) {
       setSelectedLeader('');
