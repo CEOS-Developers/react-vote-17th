@@ -14,7 +14,6 @@ const Show = styled.button`
   font-weight: bold;
   font-size: 20px;
   padding: 12px 50px 12px 50px;
-  cursor : pointer;
 
   &:hover {
     background-color: #ffd954;

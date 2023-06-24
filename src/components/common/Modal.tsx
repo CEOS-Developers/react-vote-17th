@@ -1,15 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import {useRouter} from 'next/navigation';
 
 function Modal({ clickModal }: any) {
+  const router = useRouter();
+  const logoutHandler = () =>{
+    fetch(process.env.API_URL + '/account/logout/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      //회원 정보, 토큰 받아서 처리
+      
+      router.push('/main');
+      console.log(data);
+    })
+    .catch(error => {
+      // 에러 처리
+      console.error(error);
+    });
+    
+  }
   return (
     <ModalBox onClick={clickModal}>
       <SearchModalContent onClick={(e) => e.stopPropagation()}>
         <Info>{'Repick FE 이예지'}</Info>
-        <Link href={'/main'}>
-          <Button>{'Logout'}</Button>
-        </Link>
+        <ButtonWrapper>
+          <Button onClick = {logoutHandler}>{'Logout'}</Button>
+        </ButtonWrapper>
       </SearchModalContent>
     </ModalBox>
   );
@@ -59,3 +81,7 @@ const Button = styled.button`
     transition: 0.4s;
   }
 `;
+
+const ButtonWrapper = styled.div`
+
+`

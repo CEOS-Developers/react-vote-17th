@@ -18,6 +18,11 @@ function page() {
     { key: 4, value: 'Therapease', selected: false },
     { key: 5, value: 'Hooking', selected: false },
   ]);
+  
+  //api받는 부분
+  // const data = await (await fetch(process.env.API_URL + '/api/polls/vote/demo/')).json();
+  // console.log(data);
+  
   const selectTeamHandler = (value: string) => {
     if (selectedTeam === value) {
       setSelectedTeam('');
