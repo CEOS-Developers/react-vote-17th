@@ -5,6 +5,7 @@ import Title from '@/components/common/Title';
 import Line from '@/components/common/Line';
 import SelectMenu from '@/components/vote/SelectMenu';
 import { getPollTypes } from '@/api/requests';
+
  function vote() {
   // const [pollTypes, setPollTypes] = useState([]);
   // useEffect(() => {

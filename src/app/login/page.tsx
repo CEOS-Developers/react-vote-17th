@@ -1,14 +1,22 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import arrow from '@/assets/images/arrow.svg';
 import Link from 'next/link';
 import LoginButton from '@/components/login/LoginBtn';
+import { useRouter } from 'next/navigation';
+import { loginUser } from '@/api/requests';
+import {useCookies} from 'react-cookie';
 
 export default function page() {
+  const router = useRouter();
+  const [cookies, setCookie, removeCookie] = useCookies();
+  
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  console.log("Test");
+  const isAllFieldsFilled = !!(
+    id.trim() && password
+  );
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
   };
@@ -16,6 +24,39 @@ export default function page() {
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+  
+  const loginHandler = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    if (!isAllFieldsFilled) {
+      alert('로그인 및 비밀번호를 입력해주세요');
+    } else {
+      const response = await loginUser(id,password);
+      if(response.success){ // 로그인 성공
+        alert("로그인에 성공하였습니다.");
+        const expiresDate1 = new Date();
+        expiresDate1.setDate(expiresDate1.getDate() + 1);
+        const expiresDate2 = new Date();
+        expiresDate2.setTime(expiresDate2.getTime() + 5 * 60 * 1000); // 현재 시간에 5분(5 * 60 * 1000 밀리초)을 더함
+
+        setCookie('refresh',response.data.token.refresh,{expires : expiresDate1});
+        setCookie('access',response.data.token.access,{expires : expiresDate2});
+        router.push("/vote");
+      }
+      else{ //로그인 실패
+        alert("아이디 혹은 비밀번호가 잘못되었습니다.");
+      }
+    }
+  };
+  
+  useEffect(() => {
+    const checkRefreshCookie = async () => {
+      if (cookies.refresh) {
+        router.push("/vote");
+      }
+    };
+
+    checkRefreshCookie();
+  }, []);
   return (
     <Container>
       <Head>
@@ -29,12 +70,12 @@ export default function page() {
           <Title>{'ID'}</Title>
           <Content value={id} onChange={handleIdChange} />
         </Input>
-        <Input>
+        <Input onSubmit = {loginHandler}>
           <Title>{'Password'}</Title>
           <Content type="password" value={password} onChange={handlePasswordChange} />
         </Input>
-        <LoginBtn>
-          <LoginButton id = {id} password = {password}/>  
+        <LoginBtn onClick={loginHandler}>
+          <LoginButton isFilled = {!isAllFieldsFilled}/>  
         </LoginBtn>
       </Info>
     </Container>

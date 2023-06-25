@@ -2,27 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import {useCookies} from 'react-cookie'
+import { logoutUser } from '@/api/requests';
 
 function Modal({ clickModal }: any) {
   const router = useRouter();
-  const logoutHandler = () => {
-    fetch(process.env.API_URL + '/api/accounts/logout/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        //회원 정보, 토큰 받아서 처리
-
-        router.push('/main');
-        console.log(data);
-      })
-      .catch((error) => {
-        // 에러 처리
-        console.error(error);
-      });
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const logoutHandler = async () => {
+    const response = await logoutUser(cookies.refresh);
+    console.log(response);
+    // removeCookie("refresh");
+    // removeCookie("access");
+    // router.push("/main");
   };
   return (
     <ModalBox onClick={clickModal}>
