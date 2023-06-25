@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Title from '@/components/common/Title';
@@ -8,8 +8,19 @@ import Link from 'next/link';
 import Order from '@/components/common/Order';
 import { BsCheckCircle } from 'react-icons/bs';
 import Score from '@/components/vote/Score';
+import { showFrontResult } from '@/api/requests';
 
 async function page() {
+  useEffect(() => {
+    const check = async () => {
+      const response = await showFrontResult();
+
+      console.log(response);
+    };
+
+    check();
+  }, []);
+
   const [selectedLeader, setSelectedLeader] = useState('');
 
   const [leaders, setLeaders] = useState([
@@ -24,7 +35,7 @@ async function page() {
     { key: 9, name: '김문기', team: 'Hooking', selected: false, score: 1 },
     { key: 10, name: '장효신', team: 'Hooking', selected: false, score: 1 },
   ]);
-  
+
   //api받는 부분
   // const data = await (await fetch(process.env.API_URL + '/api/polls/part-leader/front-end/')).json();
   // console.log(data);
@@ -116,5 +127,5 @@ const CoverTeam = styled.div`
 `;
 
 const LinkWrapper = styled.div`
-  margin-top : 25px;
+  margin-top: 25px;
 `;

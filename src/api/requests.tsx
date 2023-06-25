@@ -37,27 +37,30 @@ export const registerUser = async (
     part: part,
   };
 
-  const response = await fetch(process.env.API_URL + '/api/accounts/register/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+  const response = await fetch(
+    process.env.API_URL + '/api/accounts/register/',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  );
   if (response.ok) {
     const responseData = await response;
     // console.log(responseData);
-    return {success : true, data : responseData}; // 데이터 반환
+    return { success: true, data: responseData }; // 데이터 반환
   } else {
     const responseData = await response.json();
-    return {success : false, data : responseData}; // 데이터 반환
+    return { success: false, data: responseData }; // 데이터 반환
   }
 };
 
 export const loginUser = async (id: string, password: string) => {
   const data = {
     userid: id,
-    password: password
+    password: password,
   };
 
   try {
@@ -85,7 +88,7 @@ export const logoutUser = async (refresh: any) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${refresh}`, 
+      Authorization: `Bearer ${refresh}`,
     },
   });
   console.log(response);
@@ -95,17 +98,89 @@ export const logoutUser = async (refresh: any) => {
   } else {
     return { success: false };
   }
-}
+};
 
 export const getFrontList = async () => {
   try {
-    const response = await fetch(process.env.API_URL + '/api/polls/vote/part-leader/front-end/', {
+    const response = await fetch(
+      process.env.API_URL + '/api/polls/vote/part-leader/front-end/',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error('Error fetching poll types');
+    }
+  } catch (error) {
+    // 에러 처리
+    console.error(error);
+    throw error;
+  }
+};
+
+export const showFrontResult = async () => {
+  try {
+    const response = await fetch(
+      process.env.API_URL + '/api/polls/part-leader/front-end/',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error('Error fetching poll types');
+    }
+  } catch (error) {
+    // 에러 처리
+    console.error(error);
+    throw error;
+  }
+};
+
+export const showBackResult = async () => {
+  try {
+    const response = await fetch(
+      process.env.API_URL + '/api/polls/part-leader/back-end/',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error('Error fetching poll types');
+    }
+  } catch (error) {
+    // 에러 처리
+    console.error(error);
+    throw error;
+  }
+};
+
+export const showDemoResult = async () => {
+  try {
+    const response = await fetch(process.env.API_URL + '/api/polls/demo/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
-
     if (response.ok) {
       const data = await response.json();
       return data;

@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Title from '@/components/common/Title';
@@ -8,8 +8,19 @@ import Link from 'next/link';
 import { BsCheckCircle } from 'react-icons/bs';
 import Order from '@/components/common/Order';
 import Score from '@/components/vote/Score';
+import { showDemoResult } from '@/api/requests';
 
 async function page() {
+  useEffect(() => {
+    const check = async () => {
+      const response = await showDemoResult();
+
+      console.log(response);
+    };
+
+    check();
+  }, []);
+
   const [selectedTeam, setSelectedTeam] = useState('');
 
   const [teams, setTeams] = useState([
@@ -102,5 +113,5 @@ const CoverTeam = styled.div`
 `;
 
 const LinkWrapper = styled.div`
-  margin-top : 25px;
-`
+  margin-top: 25px;
+`;

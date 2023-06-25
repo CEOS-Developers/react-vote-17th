@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Title from '@/components/common/Title';
@@ -8,8 +8,19 @@ import Link from 'next/link';
 import Order from '@/components/common/Order';
 import { BsCheckCircle } from 'react-icons/bs';
 import Score from '@/components/vote/Score';
+import { showBackResult } from '@/api/requests';
 
 async function page() {
+  useEffect(() => {
+    const check = async () => {
+      const response = await showBackResult();
+
+      console.log(response);
+    };
+
+    check();
+  }, []);
+
   const [selectedLeader, setSelectedLeader] = useState('');
 
   const [leaders, setLeaders] = useState([
@@ -24,7 +35,7 @@ async function page() {
     { key: 9, name: '몰라ㄱ', team: 'Hooking', selected: false, score: 1 },
     { key: 10, name: '몰라ㄴ', team: 'Hooking', selected: false, score: 1 },
   ]);
-  
+
   //api받는 부분
   // const data = await (await fetch(process.env.API_URL + '/api/polls/part-leader/back-end/')).json();
   // console.log(data);
@@ -59,9 +70,11 @@ async function page() {
           )
         )}
       </SelectPersonWrapper>
-      <Link href={'/vote'}>
-        <Button content="돌아가기" />
-      </Link>
+      <LinkWrapper>
+        <Link href={'/vote'}>
+          <Button content="돌아가기" />
+        </Link>
+      </LinkWrapper>
     </Container>
   );
 }
@@ -111,4 +124,8 @@ const CoverTeam = styled.div`
   z-index: 1;
   //top: 0;
   bottom: 0;
+`;
+
+const LinkWrapper = styled.div`
+  margin-top: 25px;
 `;
