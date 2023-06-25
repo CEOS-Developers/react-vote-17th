@@ -1,44 +1,41 @@
 'use client';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
 
-function LoginBtn({id,password} : {id : string, password : string}) {
+function LoginBtn({ id, password }: { id: string; password: string }) {
   const router = useRouter();
   const loginHandler = () => {
-    if(!id || !password){
-      alert("로그인 및 비밀번호를 입력해주세요");
+    if (!id || !password) {
+      alert('로그인 및 비밀번호를 입력해주세요');
       console.log(process.env.API_URL);
-    }
-    else{
+    } else {
       const data = {
-        email: id,
-        password: password
+        userid: id,
+        password: password,
       };
       console.log(JSON.stringify(data));
-      fetch(process.env.API_URL + '/account/login/', {
+      fetch(process.env.API_URL + '/api/accounts/login/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       })
-      .then(response => response.json())
-      .then(data => {
-        //회원 정보, 토큰 받아서 처리
-        
-        console.log(data);
-      })
-      .catch(error => {
-        // 에러 처리
-        router.push('/main');
-        console.error(error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          //회원 정보, 토큰 받아서 처리
+
+          console.log(data);
+        })
+        .catch((error) => {
+          // 에러 처리
+          router.push('/main');
+          console.error(error);
+        });
     }
-  }
-  return (
-    <Button onClick = {loginHandler}>Login</Button>
-  );
+  };
+  return <Button onClick={loginHandler}>Login</Button>;
 }
 
 export default LoginBtn;

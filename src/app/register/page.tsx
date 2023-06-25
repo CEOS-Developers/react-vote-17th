@@ -9,14 +9,14 @@ import Sign_button from '@/components/register/Sign_button';
 
 export default function page() {
   //회원가입 정보
-  const [name, setName] = useState("");
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('');
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [email, setEmail] = useState('');
   const [selectedTeam, setSelectedTeam] = useState('');
   const [selectedPart, setSelectedPart] = useState('');
-  
+
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -27,7 +27,9 @@ export default function page() {
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
-  const handlePasswordConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordConfirmChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setPasswordConfirm(e.target.value);
   };
 
@@ -37,7 +39,7 @@ export default function page() {
   //Dropdown 관련
   const [isTeamOpen, setIsTeamOpen] = useState(false);
   const [isPartOpen, setIsPartOpen] = useState(false);
-  
+
   //Team Part Dropdown 메뉴들
   const teams = [
     { key: 1, value: 'Repick' },
@@ -48,10 +50,8 @@ export default function page() {
   ];
 
   const parts = [
-    { key: 1, value: 'FE' },
-    { key: 2, value: 'BE' },
-    { key: 3, value: 'DE' },
-    { key: 4, value: 'PM' },
+    { key: 1, value: 'Frontend' },
+    { key: 2, value: 'Backend' },
   ];
 
   const teamOpenHandler = () => {
@@ -78,19 +78,27 @@ export default function page() {
       <Info>
         <Input>
           <Title>{'Name'}</Title>
-          <Content value={name} onChange={handleNameChange}/>
+          <Content value={name} onChange={handleNameChange} />
         </Input>
         <Input>
           <Title>{'ID'}</Title>
-          <Content value={id} onChange={handleIdChange}/>
+          <Content value={id} onChange={handleIdChange} />
         </Input>
         <Input>
           <Title>{'Password'}</Title>
-          <Content type="password"  value={password} onChange={handlePasswordChange}/>
+          <Content
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
         </Input>
         <Input>
           <Title>{'Password Confirm'}</Title>
-          <Content type="password"  value={passwordConfirm} onChange={handlePasswordConfirmChange}/>
+          <Content
+            type="password"
+            value={passwordConfirm}
+            onChange={handlePasswordConfirmChange}
+          />
         </Input>
         <Input>
           <Title>{'Email'}</Title>
@@ -136,14 +144,15 @@ export default function page() {
             </div>
           </SelectWrapper>
         </Input>
-        <Sign_button 
-          name = {name} 
-          id = {id} 
-          password = {password}
-          passwordConfirm = {passwordConfirm}
-          email = {email}
-          team = {selectedTeam}
-          part = {selectedPart}/>
+        <Sign_button
+          name={name}
+          id={id}
+          password={password}
+          passwordConfirm={passwordConfirm}
+          email={email}
+          team={selectedTeam}
+          part={selectedPart}
+        />
       </Info>
     </Container>
   );

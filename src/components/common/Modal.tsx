@@ -1,36 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 function Modal({ clickModal }: any) {
   const router = useRouter();
-  const logoutHandler = () =>{
-    fetch(process.env.API_URL + '/account/logout/', {
+  const logoutHandler = () => {
+    fetch(process.env.API_URL + '/api/accounts/logout/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
     })
-    .then(response => response.json())
-    .then(data => {
-      //회원 정보, 토큰 받아서 처리
-      
-      router.push('/main');
-      console.log(data);
-    })
-    .catch(error => {
-      // 에러 처리
-      console.error(error);
-    });
-    
-  }
+      .then((response) => response.json())
+      .then((data) => {
+        //회원 정보, 토큰 받아서 처리
+
+        router.push('/main');
+        console.log(data);
+      })
+      .catch((error) => {
+        // 에러 처리
+        console.error(error);
+      });
+  };
   return (
     <ModalBox onClick={clickModal}>
       <SearchModalContent onClick={(e) => e.stopPropagation()}>
         <Info>{'Repick FE 이예지'}</Info>
         <ButtonWrapper>
-          <Button onClick = {logoutHandler}>{'Logout'}</Button>
+          <Button onClick={logoutHandler}>{'Logout'}</Button>
         </ButtonWrapper>
       </SearchModalContent>
     </ModalBox>
@@ -43,7 +42,7 @@ const ModalBox = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index : 10;
+  z-index: 10;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -82,6 +81,4 @@ const Button = styled.button`
   }
 `;
 
-const ButtonWrapper = styled.div`
-
-`
+const ButtonWrapper = styled.div``;
