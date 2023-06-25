@@ -25,7 +25,7 @@ function LoginBtn({ id, password }: { id: string; password: string }) {
         .then((response) => response.json())
         .then((data) => {
           //회원 정보, 토큰 받아서 처리
-
+          
           console.log(data);
         })
         .catch((error) => {

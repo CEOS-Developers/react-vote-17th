@@ -58,7 +58,7 @@ function Sign_button({
             //회원 정보, 토큰 받아서 처리
             alert('회원가입이 되었습니다.');
             console.log(data);
-            router.push('/main');
+            // router.push('/main');
           })
           .catch((error) => {
             // 에러 처리
