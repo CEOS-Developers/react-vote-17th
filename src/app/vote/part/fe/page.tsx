@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
@@ -7,6 +7,7 @@ import Button from '@/components/vote/Button';
 import Link from 'next/link';
 import Order from '@/components/common/Order';
 import { BsCheckCircle } from 'react-icons/bs';
+import { getFrontList } from '@/api/requests';
 
 function page() {
   const [selectedLeader, setSelectedLeader] = useState('');
@@ -23,8 +24,16 @@ function page() {
     { key: 9, name: '김문기', team: 'Hooking', selected: false },
     { key: 10, name: '장효신', team: 'Hooking', selected: false },
   ]);
+  console.log("TEST");
+  useEffect(() => {
+    const getLists = async () => {
+      const response = await getFrontList();
+      console.log(response);
+    };
 
-  //api받는 부분
+    getLists();
+  }, []);
+  //api받는 부분  
   // const data = await (await fetch(process.env.API_URL + '/api/polls/vote/part-leader/front-end/')).json();
   // console.log(data);
   

@@ -19,3 +19,102 @@ export const getPollTypes = async () => {
     throw error;
   }
 };
+
+export const registerUser = async (
+  name: string,
+  id: string,
+  email: string,
+  password: string,
+  team: string,
+  part: string
+) => {
+  const data = {
+    username: name,
+    userid: id,
+    email: email,
+    password: password,
+    team: team,
+    part: part,
+  };
+
+  const response = await fetch(process.env.API_URL + '/api/accounts/register/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const responseData = await response;
+    // console.log(responseData);
+    return {success : true, data : responseData}; // 데이터 반환
+  } else {
+    const responseData = await response.json();
+    return {success : false, data : responseData}; // 데이터 반환
+  }
+};
+
+export const loginUser = async (id: string, password: string) => {
+  const data = {
+    userid: id,
+    password: password
+  };
+
+  try {
+    const response = await fetch(process.env.API_URL + '/api/accounts/login/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      return { success: true, data: responseData };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    return { success: false };
+  }
+};
+
+export const logoutUser = async (refresh: any) => {
+  const response = await fetch(process.env.API_URL + '/api/accounts/logout/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${refresh}`, 
+    },
+  });
+  console.log(response);
+  if (response.ok) {
+    const responseData = await response.json();
+    return { success: true, data: responseData };
+  } else {
+    return { success: false };
+  }
+}
+
+export const getFrontList = async () => {
+  try {
+    const response = await fetch(process.env.API_URL + '/api/polls/vote/part-leader/front-end/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error('Error fetching poll types');
+    }
+  } catch (error) {
+    // 에러 처리
+    console.error(error);
+    throw error;
+  }
+};
