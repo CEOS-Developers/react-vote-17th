@@ -4,23 +4,22 @@ import styled from 'styled-components';
 import Title from '@/components/common/Title';
 import Line from '@/components/common/Line';
 import SelectMenu from '@/components/vote/SelectMenu';
-import { getPollTypes } from '@/api/requests';
+import { useRouter } from 'next/navigation';
+import {useCookies} from 'react-cookie';
 
  function vote() {
-  // const [pollTypes, setPollTypes] = useState([]);
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const pollTypesData = await getPollTypes();
-  //       setPollTypes(pollTypesData);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
+  const router = useRouter();
+  const [cookies, setCookie, removeCookie] = useCookies();
+  useEffect(() => {
+    const checkRefreshCookie = async () => {
+      if (!cookies.refresh) {
+        alert("로그인 해주세요.");
+        router.push("/login")
+      }
+    };
 
-  //   fetchData();
-  // }, []);
-  // console.log(pollTypes);
+    checkRefreshCookie();
+  }, []);
 
   return (
     <Container>
