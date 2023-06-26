@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
@@ -7,28 +7,62 @@ import Button from '@/components/vote/Button';
 import Link from 'next/link';
 import Order from '@/components/common/Order';
 import { BsCheckCircle } from 'react-icons/bs';
+import { getBackList } from '@/api/requests';
 
 function page() {
   const [selectedLeader, setSelectedLeader] = useState('');
+  // [
+  //   { key: 1, name: '서찬혁', team: 'Repick', selected: false },
+  //   { key: 2, name: '서혜준', team: 'Repick', selected: false },
+  //   { key: 3, name: '몰', team: 'Dan-support', selected: false },
+  //   { key: 4, name: '라', team: 'Dan-support', selected: false },
+  //   { key: 5, name: '몰라', team: 'BariBari', selected: false },
+  //   { key: 6, name: '몰라ㅏ', team: 'BariBari', selected: false },
+  //   { key: 7, name: '몰라ㅇ', team: 'Therapease', selected: false },
+  //   { key: 8, name: '몰라ㄷ', team: 'Therapease', selected: false },
+  //   { key: 9, name: '몰라ㄱ', team: 'Hooking', selected: false },
+  //   { key: 10, name: '몰라ㄴ', team: 'Hooking', selected: false },
+  // ]
+  const [leaders, setLeaders] = useState<any[]>([]);
 
-  const [leaders, setLeaders] = useState([
-    { key: 1, name: '서찬혁', team: 'Repick', selected: false },
-    { key: 2, name: '서혜준', team: 'Repick', selected: false },
-    { key: 3, name: '몰', team: 'Dan-support', selected: false },
-    { key: 4, name: '라', team: 'Dan-support', selected: false },
-    { key: 5, name: '몰라', team: 'BariBari', selected: false },
-    { key: 6, name: '몰라ㅏ', team: 'BariBari', selected: false },
-    { key: 7, name: '몰라ㅇ', team: 'Therapease', selected: false },
-    { key: 8, name: '몰라ㄷ', team: 'Therapease', selected: false },
-    { key: 9, name: '몰라ㄱ', team: 'Hooking', selected: false },
-    { key: 10, name: '몰라ㄴ', team: 'Hooking', selected: false },
-  ]);
+  useEffect(() => {
+    const getLists = async () => {
+      const response = await getBackList();
+      const transformedLeaders = Object.values(response).map((data : any) => {
+        let team = '';
+        switch (data.team) {
+          case 1:
+            team = 'Repick';
+            break;
+          case 2:
+            team = 'Therapease';
+            break;
+          case 3:
+            team = 'Dan-support';
+            break;
+          case 4:
+            team = 'BariBari';
+            break;
+          case 5:
+            team = 'Hooking';
+            break;
+          default:
+            team = '';
+        }
+      
+        return {
+          key: data.id,
+          name: data.username,
+          team: team,
+          selected: false,
+        };
+      });
+      transformedLeaders.sort((a, b) => a.team.localeCompare(b.team));
+      setLeaders(transformedLeaders);
+    };
 
-  
-  //api받는 부분
-  // const data = await (await fetch(process.env.API_URL + '/api/polls/vote/part-leader/back-end/')).json();
-  // console.log(data);
-  
+    getLists();
+  }, []);
   const selectLeaderHandler = (name: React.SetStateAction<string>) => {
     if (selectedLeader === name) {
       setSelectedLeader('');
@@ -65,7 +99,7 @@ function page() {
             </VoteForm>
             {leader.selected && (
               <Check>
-                <CoverTeam>
+                <CoverTeam onClick={() => selectLeaderHandler(leader.name)}>
                   <BsCheckCircle className="check" />
                 </CoverTeam>
               </Check>

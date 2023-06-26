@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
@@ -7,22 +7,36 @@ import Button from '@/components/vote/Button';
 import Link from 'next/link';
 import { BsCheckCircle } from 'react-icons/bs';
 import Order from '@/components/common/Order';
+import { getDemoList } from '@/api/requests';
 
 function page() {
   const [selectedTeam, setSelectedTeam] = useState('');
 
-  const [teams, setTeams] = useState([
-    { key: 1, value: 'Repick', selected: false },
-    { key: 2, value: 'Dan-support', selected: false },
-    { key: 3, value: 'BariBari', selected: false },
-    { key: 4, value: 'Therapease', selected: false },
-    { key: 5, value: 'Hooking', selected: false },
-  ]);
-  
-  //api받는 부분
-  // const data = await (await fetch(process.env.API_URL + '/api/polls/vote/demo/')).json();
-  // console.log(data);
-  
+  const [teams, setTeams] = useState<any[]>([]);
+  // [
+  //   { key: 1, value: 'Repick', selected: false },
+  //   { key: 2, value: 'Dan-support', selected: false },
+  //   { key: 3, value: 'BariBari', selected: false },
+  //   { key: 4, value: 'Therapease', selected: false },
+  //   { key: 5, value: 'Hooking', selected: false },
+  // ]
+  useEffect(() => {
+    const getLists = async () => {
+      const response = await getDemoList();
+      console.log(response);
+      const transformedTeams = Object.values(response).map((data : any) => {
+        return {
+          key: data.id,
+          value: data.name,
+          selected: false,
+        };
+      });
+      transformedTeams.sort((a, b) => a.key - b.key);
+      setTeams(transformedTeams);
+    };
+
+    getLists();
+  }, []);
   const selectTeamHandler = (value: string) => {
     if (selectedTeam === value) {
       setSelectedTeam('');
@@ -56,7 +70,7 @@ function page() {
             </VoteForm>
             {team.selected && (
               <Check>
-                <CoverTeam>
+                <CoverTeam onClick={() => selectTeamHandler(team.value)}>
                   <BsCheckCircle className="check" />
                 </CoverTeam>
               </Check>

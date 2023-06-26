@@ -11,24 +11,54 @@ import { getFrontList } from '@/api/requests';
 
 function page() {
   const [selectedLeader, setSelectedLeader] = useState('');
-
-  const [leaders, setLeaders] = useState([
-    { key: 1, name: '배성준', team: 'Repick', selected: false },
-    { key: 2, name: '이예지', team: 'Repick', selected: false },
-    { key: 3, name: '노수진', team: 'Dan-support', selected: false },
-    { key: 4, name: '신유진', team: 'Dan-support', selected: false },
-    { key: 5, name: '오예린', team: 'BariBari', selected: false },
-    { key: 6, name: '최민주', team: 'BariBari', selected: false },
-    { key: 7, name: '권가은', team: 'Therapease', selected: false },
-    { key: 8, name: '김서연', team: 'Therapease', selected: false },
-    { key: 9, name: '김문기', team: 'Hooking', selected: false },
-    { key: 10, name: '장효신', team: 'Hooking', selected: false },
-  ]);
-  console.log("TEST");
+  
+  // [
+  //   { key: 1, name: '배성준', team: 'Repick', selected: false },
+  //   { key: 2, name: '이예지', team: 'Repick', selected: false },
+  //   { key: 3, name: '노수진', team: 'Dan-support', selected: false },
+  //   { key: 4, name: '신유진', team: 'Dan-support', selected: false },
+  //   { key: 5, name: '오예린', team: 'BariBari', selected: false },
+  //   { key: 6, name: '최민주', team: 'BariBari', selected: false },
+  //   { key: 7, name: '권가은', team: 'Therapease', selected: false },
+  //   { key: 8, name: '김서연', team: 'Therapease', selected: false },
+  //   { key: 9, name: '김문기', team: 'Hooking', selected: false },
+  //   { key: 10, name: '장효신', team: 'Hooking', selected: false },
+  // ]
+  const [leaders, setLeaders] = useState<any[]>([]);
   useEffect(() => {
     const getLists = async () => {
       const response = await getFrontList();
-      console.log(response);
+      const transformedLeaders = Object.values(response).map((data : any) => {
+        let team = '';
+        switch (data.team) {
+          case 1:
+            team = 'Repick';
+            break;
+          case 2:
+            team = 'Therapease';
+            break;
+          case 3:
+            team = 'Dan-support';
+            break;
+          case 4:
+            team = 'BariBari';
+            break;
+          case 5:
+            team = 'Hooking';
+            break;
+          default:
+            team = '';
+        }
+      
+        return {
+          key: data.id,
+          name: data.username,
+          team: team,
+          selected: false,
+        };
+      });
+      transformedLeaders.sort((a, b) => a.team.localeCompare(b.team));
+      setLeaders(transformedLeaders);
     };
 
     getLists();
@@ -56,6 +86,10 @@ function page() {
       );
     }
   };
+  
+  const submitHandler = () => {
+    console.log(selectedLeader);
+  }
   return (
     <Container>
       <Order order={'2'} />
@@ -73,7 +107,7 @@ function page() {
             </VoteForm>
             {leader.selected && (
               <Check>
-                <CoverTeam>
+                <CoverTeam onClick={() => selectLeaderHandler(leader.name)}>
                   <BsCheckCircle className="check" />
                 </CoverTeam>
               </Check>
@@ -82,9 +116,9 @@ function page() {
         ))}
       </SelectPersonWrapper>
       <LinkWrapper>
-        <Link href={'/vote/part/fe/voting'}>
+        <ButtonWrapper onClick = {() => submitHandler()}>
           <Button content="제출하기" />
-        </Link>
+        </ButtonWrapper>
       </LinkWrapper>
     </Container>
   );
@@ -157,4 +191,8 @@ const CoverTeam = styled.div`
 
 const LinkWrapper = styled.div`
   margin-top : 25px;
+`
+
+const ButtonWrapper = styled.div`
+  
 `
