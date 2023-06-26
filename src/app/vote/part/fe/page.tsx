@@ -11,7 +11,7 @@ import { getFrontList } from '@/api/requests';
 
 function page() {
   const [selectedLeader, setSelectedLeader] = useState('');
-  
+
   // [
   //   { key: 1, name: '배성준', team: 'Repick', selected: false },
   //   { key: 2, name: '이예지', team: 'Repick', selected: false },
@@ -28,7 +28,7 @@ function page() {
   useEffect(() => {
     const getLists = async () => {
       const response = await getFrontList();
-      const transformedLeaders = Object.values(response).map((data : any) => {
+      const transformedLeaders = Object.values(response).map((data: any) => {
         let team = '';
         switch (data.team) {
           case 1:
@@ -49,7 +49,7 @@ function page() {
           default:
             team = '';
         }
-      
+
         return {
           key: data.id,
           name: data.username,
@@ -63,10 +63,10 @@ function page() {
 
     getLists();
   }, []);
-  //api받는 부분  
+  //api받는 부분
   // const data = await (await fetch(process.env.API_URL + '/api/polls/vote/part-leader/front-end/')).json();
   // console.log(data);
-  
+
   const selectLeaderHandler = (name: React.SetStateAction<string>) => {
     if (selectedLeader === name) {
       setSelectedLeader('');
@@ -86,10 +86,10 @@ function page() {
       );
     }
   };
-  
+
   const submitHandler = () => {
     console.log(selectedLeader);
-  }
+  };
   return (
     <Container>
       <Order order={'2'} />
@@ -116,7 +116,7 @@ function page() {
         ))}
       </SelectPersonWrapper>
       <LinkWrapper>
-        <ButtonWrapper onClick = {() => submitHandler()}>
+        <ButtonWrapper onClick={() => submitHandler()}>
           <Button content="제출하기" />
         </ButtonWrapper>
       </LinkWrapper>
@@ -190,9 +190,7 @@ const CoverTeam = styled.div`
 `;
 
 const LinkWrapper = styled.div`
-  margin-top : 25px;
-`
+  margin-top: 25px;
+`;
 
-const ButtonWrapper = styled.div`
-  
-`
+const ButtonWrapper = styled.div``;

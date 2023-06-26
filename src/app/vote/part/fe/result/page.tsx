@@ -11,30 +11,43 @@ import Score from '@/components/vote/Score';
 import { showFrontResult } from '@/api/requests';
 
 async function page() {
-  useEffect(() => {
-    const check = async () => {
-      const response = await showFrontResult();
-
-      console.log(response);
-    };
-
-    check();
-  }, []);
-
   const [selectedLeader, setSelectedLeader] = useState('');
 
-  const [leaders, setLeaders] = useState([
-    { key: 1, name: '배성준', team: 'Repick', selected: false, score: 3 },
-    { key: 2, name: '이예지', team: 'Repick', selected: false, score: 3 },
-    { key: 3, name: '노수진', team: 'Dan-support', selected: false, score: 2 },
-    { key: 4, name: '신유진', team: 'Dan-support', selected: false, score: 2 },
-    { key: 5, name: '오예린', team: 'BariBari', selected: false, score: 2 },
-    { key: 6, name: '최민주', team: 'BariBari', selected: false, score: 2 },
-    { key: 7, name: '권가은', team: 'Therapease', selected: false, score: 1 },
-    { key: 8, name: '김서연', team: 'Therapease', selected: false, score: 1 },
-    { key: 9, name: '김문기', team: 'Hooking', selected: false, score: 1 },
-    { key: 10, name: '장효신', team: 'Hooking', selected: false, score: 1 },
-  ]);
+  const [leaders, setLeaders] = useState<any[]>([]);
+  useEffect(() => {
+    const getLists = async () => {
+      const response = await showFrontResult();
+      const transformedLeaders = Object.values(response).map((data: any) => {
+        return {
+          key: data[0],
+          name: data[0],
+          team: data[1],
+          score: data[2],
+        };
+      });
+
+      setLeaders(transformedLeaders);
+    };
+    getLists();
+  }, [leaders]);
+  //console.log(leaders);
+
+  const check = () => {
+    console.log(leaders);
+  };
+
+  // const [leaders, setLeaders] = useState([
+  //   { key: 1, name: '배성준', team: 'Repick', selected: false, score: 3 },
+  //   { key: 2, name: '이예지', team: 'Repick', selected: false, score: 3 },
+  //   { key: 3, name: '노수진', team: 'Dan-support', selected: false, score: 2 },
+  //   { key: 4, name: '신유진', team: 'Dan-support', selected: false, score: 2 },
+  //   { key: 5, name: '오예린', team: 'BariBari', selected: false, score: 2 },
+  //   { key: 6, name: '최민주', team: 'BariBari', selected: false, score: 2 },
+  //   { key: 7, name: '권가은', team: 'Therapease', selected: false, score: 1 },
+  //   { key: 8, name: '김서연', team: 'Therapease', selected: false, score: 1 },
+  //   { key: 9, name: '김문기', team: 'Hooking', selected: false, score: 1 },
+  //   { key: 10, name: '장효신', team: 'Hooking', selected: false, score: 1 },
+  // ]);
 
   //api받는 부분
   // const data = await (await fetch(process.env.API_URL + '/api/polls/part-leader/front-end/')).json();
@@ -45,34 +58,25 @@ async function page() {
       <Title content="FE 파트장 투표 결과" />
       <Line />
       <SelectPersonWrapper>
-        {leaders.map(
-          (
-            leader //score 비교해서 정렬하고 뿌려야할듯
-          ) => (
-            <FormWrapper key={leader.key}>
-              <VoteForm key={leader.key}>
-                <VoteTeam>{leader.team}</VoteTeam>
-                <VoteName>{leader.name}</VoteName>
-              </VoteForm>
-              <Check>
-                <CoverTeam>
-                  <Score score={leader.score} />
-                </CoverTeam>
-              </Check>
-              {leader.selected && (
-                <Check>
-                  <CoverTeam>
-                    <BsCheckCircle className="check" />
-                  </CoverTeam>
-                </Check>
-              )}
-            </FormWrapper>
-          )
-        )}
+        {leaders.map((leader) => (
+          <FormWrapper key={leader.key}>
+            <VoteForm key={leader.key}>
+              <VoteTeam>{leader.team}</VoteTeam>
+              <VoteName>{leader.name}</VoteName>
+            </VoteForm>
+            <Check>
+              <CoverTeam>
+                <Score score={leader.score} />
+              </CoverTeam>
+            </Check>
+          </FormWrapper>
+        ))}
       </SelectPersonWrapper>
       <LinkWrapper>
         <Link href={'/vote'}>
-          <Button content="돌아가기" />
+          <Checking onClick={check}>
+            <Button content="돌아가기" />
+          </Checking>
         </Link>
       </LinkWrapper>
     </Container>
@@ -80,6 +84,8 @@ async function page() {
 }
 
 export default page;
+
+const Checking = styled.div``;
 
 const Container = styled.div`
   display: flex;
