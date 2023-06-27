@@ -39,7 +39,8 @@ export default function page() {
           id : response.data.user.id,
           part : response.data.user.part,
           team : response.data.user.team,
-          userName : response.data.user.username
+          userName : response.data.user.username,
+          userId : response.data.user.userid
         });
         
         alert("로그인에 성공하였습니다.");
