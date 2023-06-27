@@ -10,6 +10,7 @@ const userInfoState = atom({
     part : 0,
     team : 0,
     userName : '',
+    userId : '',
   },
   effects_UNSTABLE: [persistAtom],
 })
