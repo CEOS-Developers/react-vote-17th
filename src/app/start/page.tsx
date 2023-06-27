@@ -4,15 +4,19 @@ import styled from 'styled-components';
 import vote from '@/assets/images/vote.png';
 import Link from 'next/link';
 import LinkBtn from '@/components/common/LinkBtn';
+import { userInfoState } from '@/atom/states';
+import { useRecoilState } from 'recoil';
 
 export default async function page() {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
   return (
     <Container>
       <Title>{'Welcome'}</Title>
       <Middle>
         <div className="parent">
           <div className="child">
-            <User>{'이름'}</User>
+            <User>{`${userInfo.userName}`}</User>
           </div>
         </div>
         <Vote src={vote.src} />

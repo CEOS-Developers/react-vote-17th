@@ -6,19 +6,17 @@ import Link from 'next/link';
 import LoginButton from '@/components/login/LoginBtn';
 import { useRouter } from 'next/navigation';
 import { loginUser } from '@/api/requests';
-import {useCookies} from 'react-cookie';
+import { useCookies } from 'react-cookie';
 import { userInfoState } from '@/atom/states';
-import {useRecoilState} from 'recoil';
+import { useRecoilState } from 'recoil';
 
 export default function page() {
   const router = useRouter();
   const [cookies, setCookie, removeCookie] = useCookies();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const isAllFieldsFilled = !!(
-    id.trim() && password
-  );
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const isAllFieldsFilled = !!(id.trim() && password);
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
   };
@@ -26,42 +24,47 @@ export default function page() {
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
-  
-  const loginHandler = async (e: { preventDefault: () => void; }) => {
+
+  const loginHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (!isAllFieldsFilled) {
       alert('로그인 및 비밀번호를 입력해주세요');
     } else {
-      const response = await loginUser(id,password);
-      if(response.success){ // 로그인 성공
+      const response = await loginUser(id, password);
+      if (response.success) {
+        // 로그인 성공
         setUserInfo({
-          id : response.data.user.id,
-          part : response.data.user.part,
-          team : response.data.user.team,
-          userName : response.data.user.username,
-          userId : response.data.user.userid
+          id: response.data.user.id,
+          part: response.data.user.part,
+          team: response.data.user.team,
+          userName: response.data.user.username,
+          userId: response.data.user.userid,
         });
-        
-        alert("로그인에 성공하였습니다.");
+
+        alert('로그인에 성공하였습니다.');
         const expiresDate1 = new Date();
         expiresDate1.setDate(expiresDate1.getDate() + 1);
         const expiresDate2 = new Date();
         expiresDate2.setTime(expiresDate2.getTime() + 5 * 60 * 1000); // 현재 시간에 5분(5 * 60 * 1000 밀리초)을 더함
 
-        setCookie('refresh',response.data.token.refresh,{expires : expiresDate1});
-        setCookie('access',response.data.token.access,{expires : expiresDate2});
-        router.push("/vote");
-      }
-      else{ //로그인 실패
-        alert("아이디 혹은 비밀번호가 잘못되었습니다.");
+        setCookie('refresh', response.data.token.refresh, {
+          expires: expiresDate1,
+        });
+        setCookie('access', response.data.token.access, {
+          expires: expiresDate2,
+        });
+        router.push('/start');
+      } else {
+        //로그인 실패
+        alert('아이디 혹은 비밀번호가 잘못되었습니다.');
       }
     }
   };
-  
+
   useEffect(() => {
     const checkRefreshCookie = async () => {
       if (cookies.refresh) {
-        router.push("/vote");
+        router.push('/vote');
       }
     };
 
@@ -80,12 +83,16 @@ export default function page() {
           <Title>{'ID'}</Title>
           <Content value={id} onChange={handleIdChange} />
         </Input>
-        <Input onSubmit = {loginHandler}>
+        <Input onSubmit={loginHandler}>
           <Title>{'Password'}</Title>
-          <Content type="password" value={password} onChange={handlePasswordChange} />
+          <Content
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
         </Input>
         <LoginBtn onClick={loginHandler}>
-          <LoginButton isFilled = {!isAllFieldsFilled}/>  
+          <LoginButton isFilled={!isAllFieldsFilled} />
         </LoginBtn>
       </Info>
     </Container>
