@@ -1,16 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-function Score({ score }: { score: number }) {
-  return <Circle>{score}</Circle>;
+function Score({ score, win }: { score: number; win: number }) {
+  return <Circle win={win}>{score}</Circle>;
 }
 
 export default Score;
 
-const Circle = styled.button`
+const Circle = styled.button<{ win: number }>`
   width: 35px;
   height: 35px;
-  background-color: F5F5F5;
   border-radius: 50%;
   border: 2.5px solid #000000;
   display: flex;
@@ -18,4 +17,13 @@ const Circle = styled.button`
   align-items: center;
   font-weight: bold;
   font-size: 20px;
+  ${(props) =>
+    (props.win == 1 &&
+      css`
+        background-color: #ffd954;
+      `) ||
+    (props.win == 2 &&
+      css`
+        background-color: #f5f5f5;
+      `)}
 `;

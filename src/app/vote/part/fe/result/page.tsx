@@ -9,9 +9,12 @@ import Order from '@/components/common/Order';
 import { BsCheckCircle } from 'react-icons/bs';
 import Score from '@/components/vote/Score';
 import { showFrontResult } from '@/api/requests';
+import crown from '@/assets/images/crown.png';
 
 function page() {
   const [leaders, setLeaders] = useState<any[]>([]);
+
+  let partLeaders = leaders.splice(0, 2);
 
   useEffect(() => {
     const getLists = async () => {
@@ -36,17 +39,31 @@ function page() {
       <Title content="FE 파트장 투표 결과" />
       <Line />
       <SelectPersonWrapper>
-        {leaders.map((leader) => (
+        {partLeaders.map((leader) => (
           <FormWrapper key={leader.key}>
+            <C>
+              {/* ㅇㄴㅇㄴ왕관위치 */}
+              <Crown src={crown.src} />
+            </C>
             <VoteForm key={leader.key}>
               <VoteTeam>{leader.team}</VoteTeam>
               <VoteName>{leader.name}</VoteName>
             </VoteForm>
-            <Check>
-              <CoverTeam>
-                <Score score={leader.score} />
-              </CoverTeam>
-            </Check>
+            <CoverTeam>
+              <Score score={leader.score} win={1} />
+            </CoverTeam>
+          </FormWrapper>
+        ))}
+        {leaders.map((leader) => (
+          <FormWrapper key={leader.key}>
+            {/* ㅇㄴㅇㄴ노랑반투명?ㅇㄴㅇㄴ */}
+            <VoteForm key={leader.key}>
+              <VoteTeam>{leader.team}</VoteTeam>
+              <VoteName>{leader.name}</VoteName>
+            </VoteForm>
+            <CoverTeam>
+              <Score score={leader.score} win={2} />
+            </CoverTeam>
           </FormWrapper>
         ))}
       </SelectPersonWrapper>
@@ -73,7 +90,7 @@ const SelectPersonWrapper = styled.div`
   justify-content: space-between;
   width: 280px;
   padding-right: 20px;
-  
+
   overflow-y: scroll;
   overflow-x: hidden;
   height: 370px;
@@ -114,15 +131,25 @@ const VoteName = styled.div`
 const FormWrapper = styled.div`
   position: relative;
 `;
-const Check = styled.div``;
 const CoverTeam = styled.div`
   position: absolute;
   margin-left: 110px;
   z-index: 1;
-  //top: 0;
   bottom: 0;
 `;
 
 const LinkWrapper = styled.div`
   margin-top: 25px;
+`;
+
+const Crown = styled.img`
+  width: 40px;
+  height: 40px;
+  position: absolute;
+`;
+const C = styled.div`
+  position: relative;
+  top: 0;
+  z-index: 1;
+  left: 0;
 `;
