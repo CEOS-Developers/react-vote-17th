@@ -14,14 +14,13 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-text-size-adjust: none;
     font-family: 'sans-serif';
     scrollbar-width: none;
-    background-color: #FFFFFF;
+    background-color: #EDEDED;
     color: #000000;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
   }
-
   img {
     object-fit: cover;
     cursor: pointer;

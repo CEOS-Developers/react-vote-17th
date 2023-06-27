@@ -18,6 +18,18 @@ interface ILoginFormInput {
   pw: String;
 }
 
+
+export interface IPersonalInfo {
+  data: {
+    id: number;
+    name: string;
+    part: string;
+    team: string;
+  };
+}
+
+
+
 export interface UserType {
   user_id: String;
   team: String;

@@ -2,9 +2,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainVote from "../pages/MainVote";
 import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
+
+import PLVote from "../pages/PLVote";
+
 import PartVote from "../pages/PartVote";
 import DemoVote from "../pages/DemoVote";
 import Result from "../pages/Result";
+
 import Header from "../components/Header";
 import PrivateRoute from "./PrivateRoute";
 
@@ -46,6 +50,10 @@ const VoteRouter = () => {
         <Route
           path="/result"
           element={<Result />}
+        />
+        <Route
+          path="/plvote"
+          element={<PLVote />}
         />
       </Routes>
     </Router>
