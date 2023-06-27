@@ -10,9 +10,7 @@ import { BsCheckCircle } from 'react-icons/bs';
 import Score from '@/components/vote/Score';
 import { showFrontResult } from '@/api/requests';
 
-async function page() {
-  const [selectedLeader, setSelectedLeader] = useState('');
-
+function page() {
   const [leaders, setLeaders] = useState<any[]>([]);
   useEffect(() => {
     const getLists = async () => {
@@ -25,33 +23,17 @@ async function page() {
           score: data[2],
         };
       });
-
+      transformedLeaders.sort((a, b) => b.score - a.score); // Sort by descending score
+      console.log(transformedLeaders);
       setLeaders(transformedLeaders);
     };
     getLists();
-  }, [leaders]);
+  }, []);
   //console.log(leaders);
 
   const check = () => {
     console.log(leaders);
   };
-
-  // const [leaders, setLeaders] = useState([
-  //   { key: 1, name: '배성준', team: 'Repick', selected: false, score: 3 },
-  //   { key: 2, name: '이예지', team: 'Repick', selected: false, score: 3 },
-  //   { key: 3, name: '노수진', team: 'Dan-support', selected: false, score: 2 },
-  //   { key: 4, name: '신유진', team: 'Dan-support', selected: false, score: 2 },
-  //   { key: 5, name: '오예린', team: 'BariBari', selected: false, score: 2 },
-  //   { key: 6, name: '최민주', team: 'BariBari', selected: false, score: 2 },
-  //   { key: 7, name: '권가은', team: 'Therapease', selected: false, score: 1 },
-  //   { key: 8, name: '김서연', team: 'Therapease', selected: false, score: 1 },
-  //   { key: 9, name: '김문기', team: 'Hooking', selected: false, score: 1 },
-  //   { key: 10, name: '장효신', team: 'Hooking', selected: false, score: 1 },
-  // ]);
-
-  //api받는 부분
-  // const data = await (await fetch(process.env.API_URL + '/api/polls/part-leader/front-end/')).json();
-  // console.log(data);
   return (
     <Container>
       <Order order={'3'} />
