@@ -10,8 +10,8 @@ const Z_INDEX_HEADER = 100;
 const HEADER_HEIGHT = "6.5rem";
 
 const PART = {
-  Frontend: "Frontend",
-  Backend: "Backend",
+  Frontend: "front",
+  Backend: "back",
 } as const;
 
 const nameRegEx = /^[가-힣]+$/;
