@@ -4,27 +4,27 @@ import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
 import Button from '@/components/vote/Button';
-import Link from 'next/link';
-import { BsCheckCircle } from 'react-icons/bs';
 import Order from '@/components/common/Order';
-import { getDemoList } from '@/api/requests';
+import { BsCheckCircle } from 'react-icons/bs';
+import { getDemoList, pollDemo } from '@/api/requests';
+import { useCookies } from 'react-cookie';
+import getAccessToken from '@/util/getAccessToken';
+import { userInfoState } from '@/atom/states';
+import { useRecoilState } from 'recoil';
+import { useRouter } from 'next/navigation';
 
 function page() {
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const router = useRouter();
   const [selectedTeam, setSelectedTeam] = useState('');
-
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [teams, setTeams] = useState<any[]>([]);
-  // [
-  //   { key: 1, value: 'Repick', selected: false },
-  //   { key: 2, value: 'Dan-support', selected: false },
-  //   { key: 3, value: 'BariBari', selected: false },
-  //   { key: 4, value: 'Therapease', selected: false },
-  //   { key: 5, value: 'Hooking', selected: false },
-  // ]
+
   useEffect(() => {
     const getLists = async () => {
-      const response = await getDemoList();
-      console.log(response);
-      const transformedTeams = Object.values(response).map((data : any) => {
+      let accessToken = await getAccessToken(cookies, setCookie);
+      const response = await getDemoList(accessToken);
+      const transformedTeams = Object.values(response).map((data: any) => {
         return {
           key: data.id,
           value: data.name,
@@ -37,6 +37,7 @@ function page() {
 
     getLists();
   }, []);
+
   const selectTeamHandler = (value: string) => {
     if (selectedTeam === value) {
       setSelectedTeam('');
@@ -57,6 +58,31 @@ function page() {
     }
   };
 
+  const submitHandler = async () => {
+    if (!selectedTeam) {
+      alert('침을 투표주세요.');
+      return;
+    }
+    if (selectedTeam == userInfo.team) {
+      //여기 userInfo.team 맞나?
+      // 투표자랑 고른 후보가 같을 때
+      alert('본인은 본인의 팀을 투표할 수 없습니다.');
+      return;
+    }
+    let accessToken = await getAccessToken(cookies, setCookie);
+    const data = {
+      poll: 1,
+      voter: userInfo.userName,
+      target_account: '',
+      target_team: selectedTeam,
+    };
+    console.log(data);
+    const response = await pollDemo(data, accessToken);
+    if (response.success) {
+      router.push('/vote/demo/day/voting');
+    }
+  };
+
   return (
     <Container>
       <Order order={'2'} />
@@ -65,7 +91,10 @@ function page() {
       <SelectPersonWrapper>
         {teams.map((team) => (
           <FormWrapper key={team.key}>
-            <VoteForm onClick={() => selectTeamHandler(team.value)}>
+            <VoteForm
+              key={team.key}
+              onClick={() => selectTeamHandler(team.value)}
+            >
               <VoteTeam>{team.value}</VoteTeam>
             </VoteForm>
             {team.selected && (
@@ -79,9 +108,9 @@ function page() {
         ))}
       </SelectPersonWrapper>
       <LinkWrapper>
-        <Link href={'/vote/demo/day/voting'}>
+        <ButtonWrapper onClick={() => submitHandler()}>
           <Button content="제출하기" />
-        </Link>
+        </ButtonWrapper>
       </LinkWrapper>
     </Container>
   );
@@ -145,5 +174,6 @@ const CoverTeam = styled.div`
 `;
 
 const LinkWrapper = styled.div`
-  margin-top : 25px;
-`
+  margin-top: 25px;
+`;
+const ButtonWrapper = styled.div``;
