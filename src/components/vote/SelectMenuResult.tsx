@@ -18,7 +18,6 @@ function SelectMenuResult({
   isShow : boolean;
 }) {
   const lines = content.split('br');
-  console.log(isShow);
   return (
     <>
       <VoteForm>

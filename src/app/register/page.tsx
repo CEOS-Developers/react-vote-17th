@@ -96,7 +96,6 @@ export default function page() {
           router.push("/main");
         }
         else{ //회원가입 실패
-          console.log(response.data);
           if(response.data.username){
             setErrorName(true);
           }

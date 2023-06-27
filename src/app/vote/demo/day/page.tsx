@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 function page() {
   const [cookies, setCookie, removeCookie] = useCookies();
   const router = useRouter();
-  const [selectedTeam, setSelectedTeam] = useState('');
+  const [selectedTeam, setSelectedTeam] = useState(0);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [teams, setTeams] = useState<any[]>([]);
 
@@ -38,26 +38,25 @@ function page() {
     getLists();
   }, []);
 
-  const selectTeamHandler = (value: string) => {
-    if (selectedTeam === value) {
-      setSelectedTeam('');
+  const selectTeamHandler = (key: number) => {
+    if (selectedTeam === key) {
+      setSelectedTeam(0);
       setTeams((prevState) =>
         prevState.map((team) =>
-          team.value === value ? { ...team, selected: false } : team
+          team.key === key ? { ...team, selected: false } : team
         )
       );
     } else {
-      setSelectedTeam(value);
+      setSelectedTeam(key);
       setTeams((prevState) =>
         prevState.map((team) =>
-          team.value === value
+          team.key === key
             ? { ...team, selected: true }
             : { ...team, selected: false }
         )
       );
     }
   };
-
   const submitHandler = async () => {
     if (!selectedTeam) {
       alert('침을 투표주세요.');
@@ -76,7 +75,6 @@ function page() {
       target_account: '',
       target_team: selectedTeam,
     };
-    console.log(data);
     const response = await pollDemo(data, accessToken);
     if (response.success) {
       router.push('/vote/demo/day/voting');
@@ -93,13 +91,13 @@ function page() {
           <FormWrapper key={team.key}>
             <VoteForm
               key={team.key}
-              onClick={() => selectTeamHandler(team.value)}
+              onClick={() => selectTeamHandler(team.key)}
             >
               <VoteTeam>{team.value}</VoteTeam>
             </VoteForm>
             {team.selected && (
               <Check>
-                <CoverTeam onClick={() => selectTeamHandler(team.value)}>
+                <CoverTeam onClick={() => selectTeamHandler(team.key)}>
                   <BsCheckCircle className="check" />
                 </CoverTeam>
               </Check>

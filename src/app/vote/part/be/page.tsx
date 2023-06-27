@@ -97,7 +97,6 @@ function page() {
       target_account: selectedLeader,
       target_team: '',
     };
-    console.log(data);
     const response = await pollBackLeader(data, accessToken);
     if (response.success) {
       router.push('/vote/part/be/voting');

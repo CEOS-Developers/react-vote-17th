@@ -24,7 +24,6 @@ function page() {
         };
       });
       transformedLeaders.sort((a, b) => b.score - a.score); // Sort by descending score
-      console.log(transformedLeaders);
       setTeams(transformedLeaders);
     };
     getLists();

@@ -46,10 +46,8 @@ function Modal({ clickModal }: any) {
     let accessToken = await getAccessToken(cookies,setCookie);
     const response = await logoutUser(accessToken);
     if(response.success){
-      console.log("TEST");
       removeCookie("refresh");
       removeCookie("access");
-      console.log("TEST2");
       alert("로그아웃 되었습니다.");
       router.push("/main");
     }

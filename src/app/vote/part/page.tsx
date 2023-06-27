@@ -20,7 +20,6 @@ function page() {
       let accessToken = await getAccessToken(cookies,setCookie);
       const response = await getIsVoted(accessToken,userInfo.userId);
       setIsVoted(response.has_voted_part);
-      console.log(userInfo.part);
     };
 
     checkIsVoted();

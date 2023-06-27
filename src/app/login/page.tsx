@@ -34,7 +34,6 @@ export default function page() {
     } else {
       const response = await loginUser(id,password);
       if(response.success){ // 로그인 성공
-        console.log(response);
         setUserInfo({
           id : response.data.user.id,
           part : response.data.user.part,
