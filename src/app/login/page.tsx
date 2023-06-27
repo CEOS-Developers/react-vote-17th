@@ -7,11 +7,13 @@ import LoginButton from '@/components/login/LoginBtn';
 import { useRouter } from 'next/navigation';
 import { loginUser } from '@/api/requests';
 import {useCookies} from 'react-cookie';
+import { userInfoState } from '@/atom/states';
+import {useRecoilState} from 'recoil';
 
 export default function page() {
   const router = useRouter();
   const [cookies, setCookie, removeCookie] = useCookies();
-  
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const isAllFieldsFilled = !!(
@@ -32,6 +34,14 @@ export default function page() {
     } else {
       const response = await loginUser(id,password);
       if(response.success){ // 로그인 성공
+        console.log(response);
+        setUserInfo({
+          id : response.data.user.id,
+          part : response.data.user.part,
+          team : response.data.user.team,
+          userName : response.data.user.username
+        });
+        
         alert("로그인에 성공하였습니다.");
         const expiresDate1 = new Date();
         expiresDate1.setDate(expiresDate1.getDate() + 1);

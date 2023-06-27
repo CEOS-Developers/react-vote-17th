@@ -100,7 +100,24 @@ export const logoutUser = async (refresh: any) => {
   }
 };
 
-export const getFrontList = async () => {
+export const refreshAccessToken = async (refresh : any) =>{
+  const data = {
+    refresh : refresh
+  };
+  const response = await fetch(process.env.API_URL + '/api/accounts/refresh/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  }
+};
+
+export const getFrontList = async (access : any) => {
   try {
     const response = await fetch(
       process.env.API_URL + '/api/polls/vote/part-leader/front-end/',
@@ -108,10 +125,10 @@ export const getFrontList = async () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${access}`,
         },
       }
     );
-
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -125,6 +142,23 @@ export const getFrontList = async () => {
   }
 };
 
+export const pollFrontLeader = async (pollData : any,access : string) => {
+  const data = pollData;
+  const response = await fetch(process.env.API_URL + '/api/polls/vote/part-leader/front-end/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${access}`,
+    },
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    return { success: true, data: data };
+  } else {
+    return { success: false };
+  }
+};
 export const getBackList = async () => {
   try {
     const response = await fetch(

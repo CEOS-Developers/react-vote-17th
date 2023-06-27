@@ -1,5 +1,7 @@
+'use client';
 import './globals.css';
 import { Inter } from 'next/font/google';
+import { RecoilRoot } from 'recoil';
 
 export default function RootLayout({
   children,
@@ -12,7 +14,7 @@ export default function RootLayout({
         <title>vote</title>
       </head>
       <body>
-        <div className="phone">{children}</div>
+        <div className="phone"><RecoilRoot>{children}</RecoilRoot></div>
       </body>
     </html>
   );

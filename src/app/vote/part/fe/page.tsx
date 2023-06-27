@@ -4,30 +4,25 @@ import styled from 'styled-components';
 import Line from '@/components/common/Line';
 import Header from '@/components/common/Header';
 import Button from '@/components/vote/Button';
-import Link from 'next/link';
 import Order from '@/components/common/Order';
 import { BsCheckCircle } from 'react-icons/bs';
-import { getFrontList } from '@/api/requests';
+import { getFrontList, pollFrontLeader } from '@/api/requests';
+import { useCookies } from 'react-cookie';
+import getAccessToken from '@/util/getAccessToken';
+import { userInfoState } from '@/atom/states';
+import {useRecoilState} from 'recoil';
+import {useRouter} from 'next/navigation';
 
 function page() {
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const router = useRouter();
   const [selectedLeader, setSelectedLeader] = useState('');
-
-  // [
-  //   { key: 1, name: '배성준', team: 'Repick', selected: false },
-  //   { key: 2, name: '이예지', team: 'Repick', selected: false },
-  //   { key: 3, name: '노수진', team: 'Dan-support', selected: false },
-  //   { key: 4, name: '신유진', team: 'Dan-support', selected: false },
-  //   { key: 5, name: '오예린', team: 'BariBari', selected: false },
-  //   { key: 6, name: '최민주', team: 'BariBari', selected: false },
-  //   { key: 7, name: '권가은', team: 'Therapease', selected: false },
-  //   { key: 8, name: '김서연', team: 'Therapease', selected: false },
-  //   { key: 9, name: '김문기', team: 'Hooking', selected: false },
-  //   { key: 10, name: '장효신', team: 'Hooking', selected: false },
-  // ]
+  const [userInfo,setUserInfo] = useRecoilState(userInfoState);
   const [leaders, setLeaders] = useState<any[]>([]);
   useEffect(() => {
     const getLists = async () => {
-      const response = await getFrontList();
+      let accessToken = await getAccessToken(cookies,setCookie);
+      const response = await getFrontList(accessToken);
       const transformedLeaders = Object.values(response).map((data: any) => {
         let team = '';
         switch (data.team) {
@@ -63,9 +58,6 @@ function page() {
 
     getLists();
   }, []);
-  //api받는 부분
-  // const data = await (await fetch(process.env.API_URL + '/api/polls/vote/part-leader/front-end/')).json();
-  // console.log(data);
 
   const selectLeaderHandler = (name: React.SetStateAction<string>) => {
     if (selectedLeader === name) {
@@ -87,8 +79,27 @@ function page() {
     }
   };
 
-  const submitHandler = () => {
-    console.log(selectedLeader);
+  const submitHandler = async () => {
+    if(!selectedLeader){
+      alert("파트장을 투표주세요.");
+      return;
+    }
+    if(selectedLeader == userInfo.id){ // 투표자랑 고른 후보가 같을 때
+      alert("본인은 본인을 투표할 수 없습니다.");
+      return ;
+    }
+    let accessToken = await getAccessToken(cookies,setCookie);
+    const data = {
+      poll : 1,
+      voter : userInfo.userName,
+      target_account : selectedLeader,
+      target_team : ''
+    }
+    console.log(data);
+    const response = await pollFrontLeader(data,accessToken);
+    if(response.success){
+      router.push('/vote/part/fe/voting');
+    }
   };
   return (
     <Container>
