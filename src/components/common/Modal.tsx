@@ -4,16 +4,19 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {useCookies} from 'react-cookie'
 import { logoutUser } from '@/api/requests';
+import getAccessToken from '@/util/getAccessToken';
 
 function Modal({ clickModal }: any) {
   const router = useRouter();
   const [cookies, setCookie, removeCookie] = useCookies();
   const logoutHandler = async () => {
-    const response = await logoutUser(cookies.refresh);
-    console.log(response);
-    // removeCookie("refresh");
-    // removeCookie("access");
-    // router.push("/main");
+    let accessToken = await getAccessToken(cookies,setCookie);
+    const response = await logoutUser(accessToken);
+    if(response.success){
+      removeCookie("refresh");
+      removeCookie("access");
+      router.push("/main");
+    }
   };
   return (
     <ModalBox onClick={clickModal}>

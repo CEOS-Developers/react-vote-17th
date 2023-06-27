@@ -8,12 +8,17 @@ function SelectMenuResult({
   content,
   href,
   resultHref,
+  isVoted,
+  isShow
 }: {
   content: string;
   href: string;
   resultHref: string;
+  isVoted : boolean;
+  isShow : boolean;
 }) {
   const lines = content.split('br');
+  console.log(isShow);
   return (
     <>
       <VoteForm>
@@ -26,9 +31,15 @@ function SelectMenuResult({
           ))}
         </VoteName>
         <CheckWrapper>
-          <Check content={href} />
-          <Result content={resultHref} />
+          {isShow && !isVoted && <Check content={href} />}
+          {isShow && isVoted && <Result content={resultHref} />}
         </CheckWrapper>
+        
+      {!isShow && 
+        <DisableBox>
+          <WarnWrapper>본인의 파트만 투표 가능</WarnWrapper>
+        </DisableBox>
+      }
       </VoteForm>
     </>
   );
@@ -44,12 +55,12 @@ const VoteForm = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 50px;
+  position : relative;
 `;
 const VoteName = styled.div`
   font-size: 19px;
   font-weight: bold;
   margin-left: 40px;
-  margin-bottom: 40px;
 `;
 const CheckWrapper = styled.div`
   display: flex;
@@ -57,3 +68,22 @@ const CheckWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const DisableBox = styled.div`
+  position : absolute;
+  width: 300px;
+  height: 150px;
+  z-index : 10;
+  top : 0;
+  background-color: #ffe27c;
+  opacity : 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const WarnWrapper = styled.div`
+  text-align: center;
+  font-weight: bold;
+  font-size : 20px;
+`

@@ -83,20 +83,32 @@ export const loginUser = async (id: string, password: string) => {
   }
 };
 
-export const logoutUser = async (refresh: any) => {
+export const logoutUser = async (access: any) => {
   const response = await fetch(process.env.API_URL + '/api/accounts/logout/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${refresh}`,
+      Authorization: `Bearer ${access}`,
     },
   });
-  console.log(response);
   if (response.ok) {
-    const responseData = await response.json();
-    return { success: true, data: responseData };
+    return { success: true };
   } else {
     return { success: false };
+  }
+};
+
+export const getIsVoted = async (access : any, userid : any) =>{
+  const response = await fetch(process.env.API_URL + `/api/polls/vote-history/${userid}/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${access}`,
+    },
+  });
+  if (response.ok) {
+    const data = await response.json();
+    return data;
   }
 };
 
