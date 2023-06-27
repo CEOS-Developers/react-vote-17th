@@ -5,35 +5,31 @@ import Line from '@/components/common/Line';
 import Title from '@/components/common/Title';
 import Button from '@/components/vote/Button';
 import Link from 'next/link';
-import { BsCheckCircle } from 'react-icons/bs';
 import Order from '@/components/common/Order';
+import { BsCheckCircle } from 'react-icons/bs';
 import Score from '@/components/vote/Score';
 import { showDemoResult } from '@/api/requests';
 
-async function page() {
+function page() {
+  const [teams, setTeams] = useState<any[]>([]);
+
   useEffect(() => {
-    const check = async () => {
+    const getLists = async () => {
       const response = await showDemoResult();
-
-      console.log(response);
+      const transformedLeaders = Object.values(response).map((data: any) => {
+        return {
+          key: data[0],
+          team: data[0],
+          score: data[1],
+        };
+      });
+      transformedLeaders.sort((a, b) => b.score - a.score); // Sort by descending score
+      console.log(transformedLeaders);
+      setTeams(transformedLeaders);
     };
-
-    check();
+    getLists();
   }, []);
 
-  const [selectedTeam, setSelectedTeam] = useState('');
-
-  const [teams, setTeams] = useState([
-    { key: 1, value: 'Repick', selected: false, score: 3 },
-    { key: 2, value: 'Dan-support', selected: false, score: 2 },
-    { key: 3, value: 'BariBari', selected: false, score: 2 },
-    { key: 4, value: 'Therapease', selected: false, score: 1 },
-    { key: 5, value: 'Hooking', selected: false, score: 1 },
-  ]);
-
-  //api받는 부분
-  // const data = await (await fetch(process.env.API_URL + '/api/polls/demo/')).json();
-  // console.log(data);
   return (
     <Container>
       <Order order={'3'} />
@@ -43,20 +39,13 @@ async function page() {
         {teams.map((team) => (
           <FormWrapper key={team.key}>
             <VoteForm>
-              <VoteTeam>{team.value}</VoteTeam>
+              <VoteTeam>{team.team}</VoteTeam>
             </VoteForm>
             <Check>
               <CoverTeam>
                 <Score score={team.score} />
               </CoverTeam>
             </Check>
-            {team.selected && (
-              <Check>
-                <CoverTeam>
-                  <BsCheckCircle className="check" />
-                </CoverTeam>
-              </Check>
-            )}
           </FormWrapper>
         ))}
       </SelectPersonWrapper>

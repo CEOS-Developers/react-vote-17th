@@ -209,7 +209,7 @@ export const pollBackLeader = async (pollData: any, access: string) => {
   }
 };
 
-export const getDemoList = async () => {
+export const getDemoList = async (access: any) => {
   try {
     const response = await fetch(
       process.env.API_URL + '/api/polls/vote/demo/',
@@ -217,10 +217,10 @@ export const getDemoList = async () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${access}`,
         },
       }
     );
-
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -231,6 +231,24 @@ export const getDemoList = async () => {
     // 에러 처리
     console.error(error);
     throw error;
+  }
+};
+
+export const pollDemo = async (pollData: any, access: string) => {
+  const data = pollData;
+  const response = await fetch(process.env.API_URL + '/api/polls/vote/demo/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${access}`,
+    },
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    return { success: true, data: data };
+  } else {
+    return { success: false };
   }
 };
 
