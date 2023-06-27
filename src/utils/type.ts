@@ -18,4 +18,19 @@ interface ILoginFormInput {
   pw: String;
 }
 
-export { TEAM, PART, type IFormInput, type ILoginFormInput };
+interface IPersonalInfo {
+  data: {
+    id: number;
+    name: string;
+    part: string;
+    team: string;
+  };
+}
+
+export {
+  TEAM,
+  PART,
+  type IFormInput,
+  type ILoginFormInput,
+  type IPersonalInfo,
+};
