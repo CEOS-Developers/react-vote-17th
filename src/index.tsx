@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import { GlobalStyle } from "./styles/globalStyle";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme";
-
+import { RecoilRoot } from "recoil";
+import { CookiesProvider } from "react-cookie";
 import App from "./App";
 
 const root = ReactDOM.createRoot(
@@ -11,10 +12,14 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <GlobalStyle />
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <RecoilRoot>
+      <GlobalStyle />
+      <ThemeProvider theme={theme}>
+        <CookiesProvider>
+          <App />
+        </CookiesProvider>
+      </ThemeProvider>
+    </RecoilRoot>
   </React.StrictMode>
 );
 

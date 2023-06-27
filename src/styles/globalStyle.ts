@@ -23,9 +23,11 @@ export const GlobalStyle = createGlobalStyle`
   }
   img {
     object-fit: cover;
+    cursor: pointer;
   }
 
   .button {
+    cursor: pointer;
     &.button-right{
       &-1{
         position: absolute;
