@@ -1,27 +1,64 @@
 import React from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {useCookies} from 'react-cookie'
 import { logoutUser } from '@/api/requests';
 import getAccessToken from '@/util/getAccessToken';
+import { userInfoState } from '@/atom/states';
+import { useRecoilState } from 'recoil';
 
 function Modal({ clickModal }: any) {
   const router = useRouter();
   const [cookies, setCookie, removeCookie] = useCookies();
+  const [userInfo , setUserInfo] = useRecoilState(userInfoState);
+  let teamName;
+  let partName;
+  switch (userInfo.team) {
+    case 1:
+      teamName = 'Repick';
+      break;
+    case 2:
+      teamName = 'Therapease';
+      break;
+    case 3:
+      teamName = 'Dan-support';
+      break;
+    case 4:
+      teamName = 'BariBari';
+      break;
+    case 5:
+      teamName = 'Hooking';
+      break;
+    default:
+      teamName = '';
+  }
+  switch (userInfo.part) {
+    case 1:
+      partName = 'BE';
+      break;
+    case 2:
+      partName = 'FE';
+      break;
+    default:
+      partName = '';
+  }
   const logoutHandler = async () => {
     let accessToken = await getAccessToken(cookies,setCookie);
     const response = await logoutUser(accessToken);
     if(response.success){
+      console.log("TEST");
       removeCookie("refresh");
       removeCookie("access");
+      console.log("TEST2");
+      alert("로그아웃 되었습니다.");
       router.push("/main");
     }
   };
   return (
     <ModalBox onClick={clickModal}>
       <SearchModalContent onClick={(e) => e.stopPropagation()}>
-        <Info>{'Repick FE 이예지'}</Info>
+        <Info>{`${teamName} ${partName}`}</Info>
+        <Info>{`${userInfo.userName}`}</Info>
         <ButtonWrapper>
           <Button onClick={logoutHandler}>{'Logout'}</Button>
         </ButtonWrapper>

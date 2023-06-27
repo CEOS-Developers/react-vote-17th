@@ -6,16 +6,21 @@ import Link from 'next/link';
 
 function Check({ content }: any) {
   return (
-    <Link href={`${content}`}>
-      <Circle>
-        <img className="check" src={check.src} />
-      </Circle>
-    </Link>
+    <CheckWrapper>
+      <Link href={`${content}`}>
+        <Circle>
+          <img className="check" src={check.src} />
+        </Circle>
+      </Link>
+    </CheckWrapper>
   );
 }
 
 export default Check;
 
+const CheckWrapper = styled.div`
+  margin-right: 20px;
+`
 const Circle = styled.button`
   width: 35px;
   height: 35px;
@@ -25,7 +30,6 @@ const Circle = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 20px;
 
   .check {
     display: none;

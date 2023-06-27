@@ -73,6 +73,7 @@ const SelectPersonWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 280px;
+  padding-right: 20px;
 
   overflow-y: scroll;
   overflow-x: hidden;

@@ -14,7 +14,7 @@ function ResultBox({ content }: any) {
 export default ResultBox;
 
 const Show = styled.button`
-  background-color: #ffd954;
+  background-color: #d9d9d9;
   border-radius: 40px;
   border: 3px solid #000000;
   font-weight: bold;
@@ -22,7 +22,10 @@ const Show = styled.button`
   margin-top: 25px;
   padding: 12px 50px 12px 50px;
 
-  animation-name: changeColor;
-  animation-duration: 4s;
+  &:hover {
+    background-color: #00000008;
+    transition: 0.5s;
+    color: #000000;
+  }
 `;
 

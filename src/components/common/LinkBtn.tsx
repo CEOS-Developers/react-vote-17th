@@ -15,7 +15,6 @@ const Button = styled.div`
   background-color: #000000;
   width: 250px;
   height: 50px;
-  margin-top: 45px;
   box-shadow: 6.5px 6.5px 6px rgba(0, 0, 0, 20%);
   border-radius: 50px;
   justify-content: center;
