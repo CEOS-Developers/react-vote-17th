@@ -2,19 +2,13 @@ import axios from "axios";
 
 const fetchWrap = async ({ method, url, body, params }: any) => {
   const config = {
-    baseURL: process.env.REACT_APP_APIURL,
-    // withCredentials: "true",
-    headers: {
-      Authentication:
-        typeof localStorage.getItem("accessToken") === "undefined"
-          ? null
-          : `Bearer ${localStorage.getItem("accessToken")}`,
-    },
+    // baseURL: process.env.REACT_APP_APIURL,
+    withCredentials: "true",
     ...params,
   };
 
   try {
-    const { data } =
+    const data =
       (method === "get" && (await axios.get(url, config))) ||
       (method === "post" && (await axios.post(url, body, config))) ||
       (method === "put" && (await axios.put(url, body, config))) ||
@@ -24,7 +18,8 @@ const fetchWrap = async ({ method, url, body, params }: any) => {
 
     return data;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
+    return error;
   }
 };
 
