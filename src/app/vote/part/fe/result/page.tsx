@@ -12,6 +12,7 @@ import { showFrontResult } from '@/api/requests';
 
 function page() {
   const [leaders, setLeaders] = useState<any[]>([]);
+
   useEffect(() => {
     const getLists = async () => {
       const response = await showFrontResult();
@@ -29,11 +30,7 @@ function page() {
     };
     getLists();
   }, []);
-  //console.log(leaders);
 
-  const check = () => {
-    console.log(leaders);
-  };
   return (
     <Container>
       <Order order={'3'} />
@@ -56,9 +53,7 @@ function page() {
       </SelectPersonWrapper>
       <LinkWrapper>
         <Link href={'/vote'}>
-          <Checking onClick={check}>
-            <Button content="돌아가기" />
-          </Checking>
+          <Button content="돌아가기" />
         </Link>
       </LinkWrapper>
     </Container>
@@ -66,8 +61,6 @@ function page() {
 }
 
 export default page;
-
-const Checking = styled.div``;
 
 const Container = styled.div`
   display: flex;

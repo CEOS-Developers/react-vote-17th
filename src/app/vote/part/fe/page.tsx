@@ -10,18 +10,19 @@ import { getFrontList, pollFrontLeader } from '@/api/requests';
 import { useCookies } from 'react-cookie';
 import getAccessToken from '@/util/getAccessToken';
 import { userInfoState } from '@/atom/states';
-import {useRecoilState} from 'recoil';
-import {useRouter} from 'next/navigation';
+import { useRecoilState } from 'recoil';
+import { useRouter } from 'next/navigation';
 
 function page() {
   const [cookies, setCookie, removeCookie] = useCookies();
   const router = useRouter();
   const [selectedLeader, setSelectedLeader] = useState('');
-  const [userInfo,setUserInfo] = useRecoilState(userInfoState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [leaders, setLeaders] = useState<any[]>([]);
+
   useEffect(() => {
     const getLists = async () => {
-      let accessToken = await getAccessToken(cookies,setCookie);
+      let accessToken = await getAccessToken(cookies, setCookie);
       const response = await getFrontList(accessToken);
       const transformedLeaders = Object.values(response).map((data: any) => {
         let team = '';
@@ -80,24 +81,25 @@ function page() {
   };
 
   const submitHandler = async () => {
-    if(!selectedLeader){
-      alert("파트장을 투표주세요.");
+    if (!selectedLeader) {
+      alert('파트장을 투표주세요.');
       return;
     }
-    if(selectedLeader == userInfo.id){ // 투표자랑 고른 후보가 같을 때
-      alert("본인은 본인을 투표할 수 없습니다.");
-      return ;
+    if (selectedLeader == userInfo.id) {
+      // 투표자랑 고른 후보가 같을 때
+      alert('본인은 본인을 투표할 수 없습니다.');
+      return;
     }
-    let accessToken = await getAccessToken(cookies,setCookie);
+    let accessToken = await getAccessToken(cookies, setCookie);
     const data = {
-      poll : 1,
-      voter : userInfo.userName,
-      target_account : selectedLeader,
-      target_team : ''
-    }
+      poll: 1,
+      voter: userInfo.userName,
+      target_account: selectedLeader,
+      target_team: '',
+    };
     console.log(data);
-    const response = await pollFrontLeader(data,accessToken);
-    if(response.success){
+    const response = await pollFrontLeader(data, accessToken);
+    if (response.success) {
       router.push('/vote/part/fe/voting');
     }
   };

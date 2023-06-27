@@ -100,9 +100,9 @@ export const logoutUser = async (refresh: any) => {
   }
 };
 
-export const refreshAccessToken = async (refresh : any) =>{
+export const refreshAccessToken = async (refresh: any) => {
   const data = {
-    refresh : refresh
+    refresh: refresh,
   };
   const response = await fetch(process.env.API_URL + '/api/accounts/refresh/', {
     method: 'POST',
@@ -117,7 +117,7 @@ export const refreshAccessToken = async (refresh : any) =>{
   }
 };
 
-export const getFrontList = async (access : any) => {
+export const getFrontList = async (access: any) => {
   try {
     const response = await fetch(
       process.env.API_URL + '/api/polls/vote/part-leader/front-end/',
@@ -142,16 +142,19 @@ export const getFrontList = async (access : any) => {
   }
 };
 
-export const pollFrontLeader = async (pollData : any,access : string) => {
+export const pollFrontLeader = async (pollData: any, access: string) => {
   const data = pollData;
-  const response = await fetch(process.env.API_URL + '/api/polls/vote/part-leader/front-end/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${access}`,
-    },
-    body: JSON.stringify(data),
-  });
+  const response = await fetch(
+    process.env.API_URL + '/api/polls/vote/part-leader/front-end/',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${access}`,
+      },
+      body: JSON.stringify(data),
+    }
+  );
   if (response.ok) {
     const data = await response.json();
     return { success: true, data: data };
@@ -159,7 +162,8 @@ export const pollFrontLeader = async (pollData : any,access : string) => {
     return { success: false };
   }
 };
-export const getBackList = async () => {
+
+export const getBackList = async (access: any) => {
   try {
     const response = await fetch(
       process.env.API_URL + '/api/polls/vote/part-leader/back-end/',
@@ -167,10 +171,10 @@ export const getBackList = async () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${access}`,
         },
       }
     );
-
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -181,6 +185,27 @@ export const getBackList = async () => {
     // 에러 처리
     console.error(error);
     throw error;
+  }
+};
+
+export const pollBackLeader = async (pollData: any, access: string) => {
+  const data = pollData;
+  const response = await fetch(
+    process.env.API_URL + '/api/polls/vote/part-leader/back-end/',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${access}`,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  if (response.ok) {
+    const data = await response.json();
+    return { success: true, data: data };
+  } else {
+    return { success: false };
   }
 };
 

@@ -10,65 +10,46 @@ import { BsCheckCircle } from 'react-icons/bs';
 import Score from '@/components/vote/Score';
 import { showBackResult } from '@/api/requests';
 
-async function page() {
+function page() {
+  const [leaders, setLeaders] = useState<any[]>([]);
+
   useEffect(() => {
-    const check = async () => {
+    const getLists = async () => {
       const response = await showBackResult();
-
-      console.log(response);
+      const transformedLeaders = Object.values(response).map((data: any) => {
+        return {
+          key: data[0],
+          name: data[0],
+          team: data[1],
+          score: data[2],
+        };
+      });
+      transformedLeaders.sort((a, b) => b.score - a.score); // Sort by descending score
+      console.log(transformedLeaders);
+      setLeaders(transformedLeaders);
     };
-
-    check();
+    getLists();
   }, []);
 
-  const [selectedLeader, setSelectedLeader] = useState('');
-
-  const [leaders, setLeaders] = useState([
-    { key: 1, name: '서찬혁', team: 'Repick', selected: false, score: 3 },
-    { key: 2, name: '서혜준', team: 'Repick', selected: false, score: 3 },
-    { key: 3, name: '몰', team: 'Dan-support', selected: false, score: 2 },
-    { key: 4, name: '라', team: 'Dan-support', selected: false, score: 2 },
-    { key: 5, name: '몰라', team: 'BariBari', selected: false, score: 2 },
-    { key: 6, name: '몰라ㅏ', team: 'BariBari', selected: false, score: 2 },
-    { key: 7, name: '몰라ㅇ', team: 'Therapease', selected: false, score: 1 },
-    { key: 8, name: '몰라ㄷ', team: 'Therapease', selected: false, score: 1 },
-    { key: 9, name: '몰라ㄱ', team: 'Hooking', selected: false, score: 1 },
-    { key: 10, name: '몰라ㄴ', team: 'Hooking', selected: false, score: 1 },
-  ]);
-
-  //api받는 부분
-  // const data = await (await fetch(process.env.API_URL + '/api/polls/part-leader/back-end/')).json();
-  // console.log(data);
   return (
     <Container>
       <Order order={'3'} />
       <Title content="BE 파트장 투표 결과" />
       <Line />
       <SelectPersonWrapper>
-        {leaders.map(
-          (
-            leader //score 비교해서 정렬하고 뿌려야할듯
-          ) => (
-            <FormWrapper key={leader.key}>
-              <VoteForm key={leader.key}>
-                <VoteTeam>{leader.team}</VoteTeam>
-                <VoteName>{leader.name}</VoteName>
-              </VoteForm>
-              <Check>
-                <CoverTeam>
-                  <Score score={leader.score} />
-                </CoverTeam>
-              </Check>
-              {leader.selected && (
-                <Check>
-                  <CoverTeam>
-                    <BsCheckCircle className="check" />
-                  </CoverTeam>
-                </Check>
-              )}
-            </FormWrapper>
-          )
-        )}
+        {leaders.map((leader) => (
+          <FormWrapper key={leader.key}>
+            <VoteForm key={leader.key}>
+              <VoteTeam>{leader.team}</VoteTeam>
+              <VoteName>{leader.name}</VoteName>
+            </VoteForm>
+            <Check>
+              <CoverTeam>
+                <Score score={leader.score} />
+              </CoverTeam>
+            </Check>
+          </FormWrapper>
+        ))}
       </SelectPersonWrapper>
       <LinkWrapper>
         <Link href={'/vote'}>
@@ -92,6 +73,22 @@ const SelectPersonWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 280px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 370px;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    padding-left: 3px;
+
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
 `;
 const VoteForm = styled.div`
   width: 120px;
