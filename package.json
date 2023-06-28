@@ -33,7 +33,6 @@
       "react-app/jest"
     ]
   },
-  "proxy": "https://hooking.shop",
   "browserslist": {
     "production": [
       ">0.2%",
