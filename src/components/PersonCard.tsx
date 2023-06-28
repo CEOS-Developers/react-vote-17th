@@ -1,11 +1,11 @@
-import { IPersonalInfo } from "@/utils/type";
+import { IPersonProps } from "@/utils/type";
 import styled from "styled-components";
-import SpriteImg from "../assets/images/person_card_sprite.png";
+import SpriteImg from "../assets/Images/person_card_sprite.png";
 
-export const PersonCard = ({ data }: IPersonalInfo) => {
-  let position = `-${data.id * 100}px 0`;
-  if (data.id >= 10) {
-    position = `-${(data.id - 10) * 100}px -140px`;
+export const PersonCard = ({ data }: IPersonProps) => {
+  let position = `-${Number(data.user_id) * 100}px 0`;
+  if (Number(data.user_id) >= 10) {
+    position = `-${(Number(data.user_id) - 10) * 100}px -140px`;
   }
 
   return <Person position={position} />;
