@@ -39,7 +39,7 @@ function page() {
       }
     };
     const firework = async () => {
-      var end = Date.now() + 15 * 1000;
+      var end = Date.now() + 2 * 1000;
       var colors = ['#bb0000', '#ffffff'];
       (function frame() {
         confetti({
