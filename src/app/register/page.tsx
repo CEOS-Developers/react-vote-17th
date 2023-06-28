@@ -19,7 +19,11 @@ export default function page() {
   const [email, setEmail] = useState('');
   const [selectedTeam, setSelectedTeam] = useState('');
   const [selectedPart, setSelectedPart] = useState('');
-  
+
+  let regex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
+
+  console.log(regex.test(email));
+
   const [errorName, setErrorName] = useState(false);
   const [errorId, setErrorId] = useState(false);
   const [errorEmail, setErrorEmail] = useState(false);
@@ -82,7 +86,7 @@ export default function page() {
   const selectPartHandler = (value: React.SetStateAction<string>) => {
     setSelectedPart(value);
   };
-  
+
   const registerHandler = async () => {
     if (isAllFieldsFilled) {
       // 다 채웠을 때
@@ -90,29 +94,33 @@ export default function page() {
         alert('비밀번호를 확인해주세요.');
         return;
       } else {
-        const response = await registerUser(name,id,email,password,selectedTeam,selectedPart);
-        if(response.success){ // 회원가입 성공
-          alert("회원가입에 성공하였습니다.");
-          router.push("/main");
-        }
-        else{ //회원가입 실패
-          if(response.data.username){
+        const response = await registerUser(
+          name,
+          id,
+          email,
+          password,
+          selectedTeam,
+          selectedPart
+        );
+        if (response.success) {
+          // 회원가입 성공
+          alert('회원가입에 성공하였습니다.');
+          router.push('/main');
+        } else {
+          //회원가입 실패
+          if (response.data.username) {
             setErrorName(true);
-          }
-          else{
+          } else {
             setErrorName(false);
           }
-          if(response.data.userid){
+          if (response.data.userid) {
             setErrorId(true);
-          }
-          else{
+          } else {
             setErrorId(false);
           }
-          if(response.data.email){
+          if (response.data.email) {
             setErrorEmail(true);
-          }
-          else
-            setErrorEmail(false);
+          } else setErrorEmail(false);
         }
       }
     }
@@ -134,7 +142,7 @@ export default function page() {
           <Content value={name} onChange={handleNameChange} />
         </Input>
         <Input>
-        <TitleWrapper>
+          <TitleWrapper>
             <Title>{'ID'}</Title>
             {errorId && <Errors>중복된 아이디입니다.</Errors>}
           </TitleWrapper>
@@ -160,6 +168,7 @@ export default function page() {
           <TitleWrapper>
             <Title>{'Email'}</Title>
             {errorEmail && <Errors>중복된 이메일입니다.</Errors>}
+            {!regex.test(email) && <Errors>형식ㄴㄴ.</Errors>}
           </TitleWrapper>
           <Content value={email} onChange={handleEmailChange} />
         </Input>
@@ -203,8 +212,8 @@ export default function page() {
             </div>
           </SelectWrapper>
         </Input>
-        <ButtonWrapper onClick = {registerHandler}>
-          <SignButton isFilled = {!isAllFieldsFilled}/>
+        <ButtonWrapper onClick={registerHandler}>
+          <SignButton isFilled={!isAllFieldsFilled} />
         </ButtonWrapper>
       </Info>
     </Container>
@@ -242,7 +251,7 @@ const Input = styled.form`
 const Title = styled.div`
   color: #6b6758;
   margin-bottom: 10px;
-  font-weight : bold;
+  font-weight: bold;
 `;
 const Content = styled.input`
   width: 260px;
@@ -320,13 +329,15 @@ const Li = styled.li`
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top : 45px;
-`
+  margin-top: 45px;
+`;
 const TitleWrapper = styled.div`
-  display : flex;
-`
+  display: flex;
+`;
 const Errors = styled.p`
-  color : red;
-  margin : 0;
-  margin-left : 20px;
-`
+  color: red;
+  margin: 0;
+  margin-left: 20px;
+  font-size: 10px;
+  font-weight: bold;
+`;
