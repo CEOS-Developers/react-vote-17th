@@ -59,12 +59,30 @@ function page() {
   };
   const submitHandler = async () => {
     if (!selectedTeam) {
-      alert('침을 투표주세요.');
+      alert('투표할 팀을 선택해주세요.');
       return;
     }
-    if (selectedTeam == userInfo.team) {
-      //여기 userInfo.team 맞나?
-      // 투표자랑 고른 후보가 같을 때
+    let teamName;
+    switch (userInfo.team) {
+      case 1:
+        teamName = 'Repick';
+        break;
+      case 2:
+        teamName = 'Therapease';
+        break;
+      case 3:
+        teamName = 'Dan-support';
+        break;
+      case 4:
+        teamName = 'BariBari';
+        break;
+      case 5:
+        teamName = 'Hooking';
+        break;
+      default:
+        teamName = '';
+    }
+    if (selectedTeam == teamName) {
       alert('본인은 본인의 팀을 투표할 수 없습니다.');
       return;
     }
@@ -73,9 +91,8 @@ function page() {
       poll: 2,
       voter: userInfo.userName,
       target_account: '',
-      target_team: selectedTeam,
+      target_team: selectedTeam,  
     };
-    console.log(data);
     const response = await pollDemo(data, accessToken);
     if (response.success) {
       router.push('/vote/demo/day/voting');
