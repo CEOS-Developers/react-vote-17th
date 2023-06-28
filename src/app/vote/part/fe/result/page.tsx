@@ -31,12 +31,14 @@ function Page() {
       // Find the highest score
       if (transformedLeaders.length > 0) {
         const highestScore = transformedLeaders[0].score;
-        const highestScoreLeaders = transformedLeaders.filter((leader) => leader.score === highestScore);
+        const highestScoreLeaders = transformedLeaders.filter(
+          (leader) => leader.score === highestScore
+        );
         setHighestScoreLeaders(highestScoreLeaders);
       }
     };
     const firework = async () => {
-      var end = Date.now() + (15 * 1000);
+      var end = Date.now() + 15 * 1000;
       var colors = ['#bb0000', '#ffffff'];
       (function frame() {
         confetti({
@@ -44,21 +46,21 @@ function Page() {
           angle: 60,
           spread: 55,
           origin: { x: 0 },
-          colors: colors
+          colors: colors,
         });
         confetti({
           particleCount: 2,
           angle: 120,
           spread: 55,
           origin: { x: 1 },
-          colors: colors
+          colors: colors,
         });
 
         if (Date.now() < end) {
           requestAnimationFrame(frame);
         }
-      }());
-    }
+      })();
+    };
     getLists();
     firework();
   }, []);
@@ -72,15 +74,24 @@ function Page() {
         {leaders.map((leader) => (
           <FormWrapper key={leader.key}>
             <C>
-              {highestScoreLeaders.includes(leader) && <Crown src={crown.src} />}
+              {highestScoreLeaders.includes(leader) && (
+                <Crown src={crown.src} />
+              )}
             </C>
-            <LeaderInfoWrapper ishighestscore={highestScoreLeaders.includes(leader) ? "include" : "none"}>
+            <LeaderInfoWrapper
+              ishighestscore={
+                highestScoreLeaders.includes(leader) ? 'include' : 'none'
+              }
+            >
               <VoteForm key={leader.key}>
                 <VoteTeam>{leader.team}</VoteTeam>
                 <VoteName>{leader.name}</VoteName>
               </VoteForm>
               <CoverTeam>
-                <Score score={leader.score} win={highestScoreLeaders.includes(leader) ? 1 : 2} />
+                <Score
+                  score={leader.score}
+                  win={highestScoreLeaders.includes(leader) ? 1 : 2}
+                />
               </CoverTeam>
             </LeaderInfoWrapper>
           </FormWrapper>
@@ -162,20 +173,20 @@ const LinkWrapper = styled.div`
 `;
 
 const Crown = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
 `;
 const C = styled.div`
   position: absolute;
-  top: -5px;
+  top: 11px;
   z-index: 1;
-  left: -10px;
+  margin-left: 110px;
 `;
 
 const LeaderInfoWrapper = styled.div<{ ishighestscore: string }>`
   ${({ ishighestscore }) =>
-  ishighestscore == "none" &&
-  css`
-    opacity: 0.5; // 반투명 효과를 위한 투명도 조절
-  `}
-`
+    ishighestscore == 'none' &&
+    css`
+      opacity: 0.5; // 반투명 효과를 위한 투명도 조절
+    `}
+`;
