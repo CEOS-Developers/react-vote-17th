@@ -56,7 +56,6 @@ function page() {
           origin: { x: 1 },
           colors: colors,
         });
-
         if (Date.now() < end) {
           requestAnimationFrame(frame);
         }

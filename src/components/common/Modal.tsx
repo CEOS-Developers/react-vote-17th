@@ -46,20 +46,36 @@ function Modal({ clickModal }: any) {
     let accessToken = await getAccessToken(cookies,setCookie);
     const response = await logoutUser(accessToken);
     if(response.success){
-      removeCookie("refresh");
-      removeCookie("access");
+      document.cookie = "refresh=; expires=0; path=/;";
+      document.cookie = "access=; expires=0; path=/;";
+      localStorage.removeItem("recoil-persist");
       alert("로그아웃 되었습니다.");
       router.push("/main");
     }
   };
+  const loginHandler = async () => {
+    router.push("/login");
+  }
+  console.log(userInfo);
   return (
     <ModalBox onClick={clickModal}>
       <SearchModalContent onClick={(e) => e.stopPropagation()}>
-        <Info>{`${teamName} ${partName}`}</Info>
-        <Info>{`${userInfo.userName}`}</Info>
-        <ButtonWrapper>
-          <Button onClick={logoutHandler}>{'Logout'}</Button>
-        </ButtonWrapper>
+        {userInfo.userName ? 
+          <>
+            <InfoWrapper>
+              <Info>{`${teamName} ${partName}`}</Info>
+              <Info>{`${userInfo.userName}`}</Info>
+            </InfoWrapper>
+            <ButtonWrapper>
+              <Button onClick={logoutHandler}>{'Logout'}</Button>
+            </ButtonWrapper>
+          </> :
+          <>
+            <ButtonWrapper>
+              <Button onClick={loginHandler}>{'Login'}</Button>
+            </ButtonWrapper>
+          </> 
+        }
       </SearchModalContent>
     </ModalBox>
   );
@@ -95,13 +111,15 @@ const Info = styled.div`
   font-weight: bold;
 `;
 
+const InfoWrapper = styled.div`
+  margin-bottom : 25px;
+`
 const Button = styled.button`
   background-color: #f5f5f5;
   border-radius: 40px;
   border: 3px solid #000000;
   font-weight: bold;
   font-size: 15px;
-  margin-top: 25px;
   padding: 12px 50px 12px 50px;
 
   &:hover {
