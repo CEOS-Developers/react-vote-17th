@@ -85,7 +85,7 @@ function page() {
       alert('파트장을 투표주세요.');
       return;
     }
-    if (selectedLeader == userInfo.username) {
+    if (selectedLeader == userInfo.userName) {
       // 투표자랑 고른 후보가 같을 때
       alert('본인은 본인을 투표할 수 없습니다.');
       return;
