@@ -113,7 +113,6 @@ const CardWithBtn = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
     height: 60px;
     overflow: hidden;
     font-family: "Inter";
