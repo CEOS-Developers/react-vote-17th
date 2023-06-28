@@ -20,13 +20,13 @@ export default function page() {
   const [selectedTeam, setSelectedTeam] = useState('');
   const [selectedPart, setSelectedPart] = useState('');
 
-  let regex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
-
-  console.log(regex.test(email));
+  let regex = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$');
 
   const [errorName, setErrorName] = useState(false);
   const [errorId, setErrorId] = useState(false);
   const [errorEmail, setErrorEmail] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+
   const isAllFieldsFilled = !!(
     name.trim() &&
     id.trim() &&
@@ -34,7 +34,8 @@ export default function page() {
     passwordConfirm &&
     email.trim() &&
     selectedTeam &&
-    selectedPart
+    selectedPart &&
+    isEmailValid
   );
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -53,7 +54,9 @@ export default function page() {
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+    const emailValue = e.target.value;
+    setEmail(emailValue);
+    setIsEmailValid(regex.test(emailValue));
   };
   //Dropdown 관련
   const [isTeamOpen, setIsTeamOpen] = useState(false);
@@ -93,7 +96,7 @@ export default function page() {
       if (password.trim() !== passwordConfirm.trim()) {
         alert('비밀번호를 확인해주세요.');
         return;
-      } else {
+      } else{
         const response = await registerUser(
           name,
           id,
@@ -168,7 +171,7 @@ export default function page() {
           <TitleWrapper>
             <Title>{'Email'}</Title>
             {errorEmail && <Errors>중복된 이메일입니다.</Errors>}
-            {!regex.test(email) && <Errors>형식ㄴㄴ.</Errors>}
+            {!isEmailValid && <Errors>이메일 형식이 아닙니다.</Errors>}
           </TitleWrapper>
           <Content value={email} onChange={handleEmailChange} />
         </Input>

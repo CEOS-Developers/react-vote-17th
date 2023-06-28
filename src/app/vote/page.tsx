@@ -1,27 +1,11 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Title from '@/components/common/Title';
 import Line from '@/components/common/Line';
 import SelectMenu from '@/components/vote/SelectMenu';
-import { useCookies } from 'react-cookie';
-import getAccessToken from '@/util/getAccessToken';
-import { userInfoState } from '@/atom/states';
-import { useRecoilState } from 'recoil';
-import { getPollTypes } from '@/api/requests';
 
  function vote() {
-  const [cookies,setCookie,removeCookie] = useCookies();
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  useEffect(() => {
-    const checkIsVoted = async () => {
-      let accessToken = await getAccessToken(cookies,setCookie);
-      const response = await getPollTypes(accessToken);
-      console.log(response);
-    };
-
-    checkIsVoted();
-  }, []);
   return (
     <Container>
       <div className="vote-leader">

@@ -56,7 +56,6 @@ function Modal({ clickModal }: any) {
   const loginHandler = async () => {
     router.push("/login");
   }
-  console.log(userInfo);
   return (
     <ModalBox onClick={clickModal}>
       <SearchModalContent onClick={(e) => e.stopPropagation()}>
