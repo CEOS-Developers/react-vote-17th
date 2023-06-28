@@ -149,6 +149,23 @@ const SelectPersonWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 280px;
+  padding-right: 20px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 370px;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    padding-left: 3px;
+
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
 `;
 const VoteForm = styled.div`
   width: 120px;

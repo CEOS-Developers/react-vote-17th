@@ -1,20 +1,18 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Line from '@/components/common/Line';
 import Title from '@/components/common/Title';
 import Button from '@/components/vote/Button';
 import Link from 'next/link';
 import Order from '@/components/common/Order';
-import { BsCheckCircle } from 'react-icons/bs';
 import Score from '@/components/vote/Score';
 import { showFrontResult } from '@/api/requests';
 import crown from '@/assets/images/crown.png';
-
-function page() {
+import confetti from 'canvas-confetti';
+function Page() {
   const [leaders, setLeaders] = useState<any[]>([]);
-
-  let partLeaders = leaders.splice(0, 2);
+  const [highestScoreLeaders, setHighestScoreLeaders] = useState<any[]>([]);
 
   useEffect(() => {
     const getLists = async () => {
@@ -29,8 +27,40 @@ function page() {
       });
       transformedLeaders.sort((a, b) => b.score - a.score); // Sort by descending score
       setLeaders(transformedLeaders);
+
+      // Find the highest score
+      if (transformedLeaders.length > 0) {
+        const highestScore = transformedLeaders[0].score;
+        const highestScoreLeaders = transformedLeaders.filter((leader) => leader.score === highestScore);
+        setHighestScoreLeaders(highestScoreLeaders);
+      }
     };
+    const firework = async () => {
+      var end = Date.now() + (15 * 1000);
+      var colors = ['#bb0000', '#ffffff'];
+      (function frame() {
+        confetti({
+          particleCount: 2,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors
+        });
+        confetti({
+          particleCount: 2,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
     getLists();
+    firework();
   }, []);
 
   return (
@@ -39,31 +69,20 @@ function page() {
       <Title content="FE 파트장 투표 결과" />
       <Line />
       <SelectPersonWrapper>
-        {partLeaders.map((leader) => (
-          <FormWrapper key={leader.key}>
-            <C>
-              {/* ㅇㄴㅇㄴ왕관위치 */}
-              <Crown src={crown.src} />
-            </C>
-            <VoteForm key={leader.key}>
-              <VoteTeam>{leader.team}</VoteTeam>
-              <VoteName>{leader.name}</VoteName>
-            </VoteForm>
-            <CoverTeam>
-              <Score score={leader.score} win={1} />
-            </CoverTeam>
-          </FormWrapper>
-        ))}
         {leaders.map((leader) => (
           <FormWrapper key={leader.key}>
-            {/* ㅇㄴㅇㄴ노랑반투명?ㅇㄴㅇㄴ */}
-            <VoteForm key={leader.key}>
-              <VoteTeam>{leader.team}</VoteTeam>
-              <VoteName>{leader.name}</VoteName>
-            </VoteForm>
-            <CoverTeam>
-              <Score score={leader.score} win={2} />
-            </CoverTeam>
+            <C>
+              {highestScoreLeaders.includes(leader) && <Crown src={crown.src} />}
+            </C>
+            <LeaderInfoWrapper ishighestscore={highestScoreLeaders.includes(leader) ? "include" : "none"}>
+              <VoteForm key={leader.key}>
+                <VoteTeam>{leader.team}</VoteTeam>
+                <VoteName>{leader.name}</VoteName>
+              </VoteForm>
+              <CoverTeam>
+                <Score score={leader.score} win={highestScoreLeaders.includes(leader) ? 1 : 2} />
+              </CoverTeam>
+            </LeaderInfoWrapper>
           </FormWrapper>
         ))}
       </SelectPersonWrapper>
@@ -76,7 +95,7 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
 
 const Container = styled.div`
   display: flex;
@@ -145,11 +164,18 @@ const LinkWrapper = styled.div`
 const Crown = styled.img`
   width: 40px;
   height: 40px;
-  position: absolute;
 `;
 const C = styled.div`
-  position: relative;
-  top: 0;
+  position: absolute;
+  top: -5px;
   z-index: 1;
-  left: 0;
+  left: -10px;
 `;
+
+const LeaderInfoWrapper = styled.div<{ ishighestscore: string }>`
+  ${({ ishighestscore }) =>
+  ishighestscore == "none" &&
+  css`
+    opacity: 0.5; // 반투명 효과를 위한 투명도 조절
+  `}
+`

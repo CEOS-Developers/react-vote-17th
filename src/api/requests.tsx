@@ -1,9 +1,10 @@
-export const getPollTypes = async () => {
+export const getPollTypes = async (access : any) => {
   try {
     const response = await fetch(process.env.API_URL + '/api/polls/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${access}`,
       },
     });
 
