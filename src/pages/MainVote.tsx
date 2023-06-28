@@ -9,30 +9,40 @@ import ResultCard from "../assets/Images/img-card-result.png";
 import styled from "styled-components";
 
 const MainVote = () => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered1, setIsHovered1] = useState(false);
+  const [isHovered2, setIsHovered2] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseEnter = ({ type }: IVRprops) => {
+    type === 1 ? setIsHovered1(true) : setIsHovered2(true);
+  };
 
-  const handleMouseLeave = () => setIsHovered(false);
+  const handleMouseLeave = ({ type }: IVRprops) => {
+    type === 1 ? setIsHovered1(false) : setIsHovered2(false);
+  };
 
-  const VoteResult = () => {
+  interface IVRprops {
+    type: number;
+  }
+  const VoteResult = ({ type }: IVRprops) => {
+    let nav_vote = type === 1 ? "partVote" : "demoVote";
+    let nav_res = type === 1 ? "result" : "result_demo";
     return (
       <VoteWrapper>
         <img
           src={VoteCard}
           alt="vote-card"
           className="vote-card"
-          onMouseLeave={handleMouseLeave}
-          onClick={() => navigate("partVote")}
+          onMouseLeave={() => handleMouseLeave({ type: type })}
+          onClick={() => navigate(nav_vote)}
         />
         <img
           src={ResultCard}
           alt="result-card"
           className="vote-card"
-          onMouseLeave={handleMouseLeave}
-          onClick={() => navigate("result")}
+          onMouseLeave={() => handleMouseLeave({ type: type })}
+          onClick={() => navigate(nav_res)}
         />
       </VoteWrapper>
     );
@@ -40,23 +50,33 @@ const MainVote = () => {
   return (
     <Main>
       <div className="main">
-        {isHovered ? (
-          <VoteResult />
+        {isHovered1 ? (
+          <VoteResult type={1} />
         ) : (
           <img
             className="main-card"
-            src={LeaderCard}
             alt="leader-card"
-            onMouseEnter={handleMouseEnter}
+            src={LeaderCard}
+            onMouseEnter={() => handleMouseEnter({ type: 1 })}
+          />
+        )}
+        {isHovered2 ? (
+          <VoteResult type={2} />
+        ) : (
+          <img
+            className="main-card"
+            alt="demo-card"
+            src={DemoCard}
+            onMouseEnter={() => handleMouseEnter({ type: 2 })}
           />
         )}
 
-        <img
+        {/* <img
           className="main-card"
           alt="demo-card"
           src={DemoCard}
           onClick={() => navigate("demoVote")}
-        />
+        /> */}
       </div>
     </Main>
   );

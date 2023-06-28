@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
+
 import { TEAM, PART } from "../assets/constants";
 
 type TEAM = (typeof TEAM)[keyof typeof TEAM];
@@ -18,17 +20,15 @@ interface ILoginFormInput {
   pw: String;
 }
 
-
 export interface IPersonalInfo {
-  data: {
-    id: number;
-    name: string;
-    part: string;
-    team: string;
-  };
+  user_id: String;
+  name: String;
+  part: String;
+  team: String;
 }
-
-
+export interface IPersonProps {
+  data: IPersonalInfo;
+}
 
 export interface UserType {
   user_id: String;
