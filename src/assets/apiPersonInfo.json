@@ -1,0 +1,102 @@
+[
+  {
+    "user_id": "1",
+    "name": "권가은",
+    "team": "therapease"
+  },
+  {
+    "user_id": "2",
+    "name": "김문기",
+    "team": "hooking"
+  },
+  {
+    "user_id": "3",
+    "name": "김서연",
+    "team": "therapease"
+  },
+  {
+    "user_id": "4",
+    "name": "노수진",
+    "team": "dansupport"
+  },
+  {
+    "user_id": "5",
+    "name": "배성준",
+    "team": "repick"
+  },
+  {
+    "user_id": "6",
+    "name": "신유진",
+    "team": "dansupport"
+  },
+  {
+    "user_id": "7",
+    "name": "오예린",
+    "team": "baribari"
+  },
+  {
+    "user_id": "8",
+    "name": "이예지",
+    "team": "repick"
+  },
+  {
+    "user_id": "9",
+    "name": "장효신",
+    "team": "hooking"
+  },
+  {
+    "user_id": "10",
+    "name": "최민주",
+    "team": "baribari"
+  },
+  {
+    "user_id": "11",
+    "name": "김지원",
+    "team": "hooking"
+  },
+  {
+    "user_id": "12",
+    "name": "김현수",
+    "team": "dansupport"
+  },
+  {
+    "user_id": "13",
+    "name": "김현우",
+    "team": "bariari"
+  },
+  {
+    "user_id": "14",
+    "name": "서찬혁",
+    "team": "repick"
+  },
+  {
+    "user_id": "15",
+    "name": "서혜준",
+    "team": "repick"
+  },
+  {
+    "user_id": "16",
+    "name": "이소정",
+    "team": "therapease"
+  },
+  {
+    "user_id": "17",
+    "name": "임탁균",
+    "team": "dansupport"
+  },
+  {
+    "user_id": "18",
+    "name": "조예지",
+    "team": "hooking"
+  },
+  {
+    "user_id": "19",
+    "name": "최유미",
+    "team": "baribari"
+  },
+  {
+    "user_id": "20",
+    "name": "황재령",
+    "team": "therapease"
+  }
+]
