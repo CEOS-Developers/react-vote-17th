@@ -41,13 +41,23 @@ const DemoResult = () => {
   }, []);
   return (
     <Wrapper>
-      {TeamInfo.map((team) => (
+      {/* {TeamInfo.map((team) => (
         <TeamCard
           team={Number(team.team_id)}
           type={2}
           vote={teamVote?.find((item) => item.team === team.name)?.vote_cnt}
         />
-      ))}
+      ))} */}
+      {teamVote?.map((item) => {
+        let render = TeamInfo.find((team) => team.name === item.team);
+        return (
+          <TeamCard
+            team={Number(render!.team_id)}
+            type={2}
+            vote={item.vote_cnt}
+          />
+        );
+      })}
     </Wrapper>
   );
 };
