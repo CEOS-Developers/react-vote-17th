@@ -1,0 +1,70 @@
+.container {
+  /*height: 100vh;*/
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding-top: 100px;
+}
+
+.title {
+  font-size: 27px;
+  font-weight: 700;
+
+  margin: 100px 0 100px 0;
+}
+
+.candidatesBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  width: 1000px;
+
+  /*background-color: blue;*/
+}
+
+.candidateBtn {
+  background-color: #f4f4f4;
+  font-size: 27px;
+  font-weight: 700;
+  border-radius: 10px;
+
+  width: 18%;
+  height: 60px;
+
+  margin: 5px;
+
+  transition: all 200ms ease-out;
+}
+
+.candidateBtn:hover {
+  border: 3px solid #454545;
+}
+
+.selectedCandidateBtn {
+  background-color: #f4f4f4;
+  font-size: 27px;
+  font-weight: 700;
+  border: 3px solid black;
+  border-radius: 10px;
+
+  width: 18%;
+  height: 60px;
+
+  margin: 5px;
+}
+
+.voteBtn {
+  background: #00499e;
+  height: 65px;
+  width: 215px;
+  border-radius: 20px;
+  font-size: 23px;
+  font-weight: 700;
+  color: #ffffff;
+
+  margin-top: 80px;
+}
