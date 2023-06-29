@@ -55,6 +55,21 @@ const Result = () => {
           <CardArea>
             프론트엔드 파트장 투표
             <CardContainer>
+              {frontRes.map((item) => {
+                let renderVal = PersonInfo.find(
+                  (person) => person.name === item.name
+                )!;
+                return (
+                  <CardWithBtn key={Number(renderVal.user_id)}>
+                    <PersonCard data={renderVal} />
+                    <span>
+                      <div>{item.vote_cnt}표</div>
+                    </span>
+                  </CardWithBtn>
+                );
+              })}
+
+              {/*               
               {PersonInfo.filter((item) => item.part === "frontend").map(
                 (person) => {
                   let voteCnt = frontRes.find(
@@ -69,13 +84,26 @@ const Result = () => {
                     </CardWithBtn>
                   );
                 }
-              )}
+              )} */}
             </CardContainer>
           </CardArea>
           <CardArea>
             백엔드 파트장 투표
             <CardContainer>
-              {PersonInfo.filter((item) => item.part === "backend").map(
+              {backRes.map((item) => {
+                let renderVal = PersonInfo.find(
+                  (person) => person.name === item.name
+                )!;
+                return (
+                  <CardWithBtn key={Number(renderVal.user_id)}>
+                    <PersonCard data={renderVal} />
+                    <span>
+                      <div>{item.vote_cnt}표</div>
+                    </span>
+                  </CardWithBtn>
+                );
+              })}
+              {/* {PersonInfo.filter((item) => item.part === "backend").map(
                 (person) => {
                   let voteCnt = backRes.find(
                     (item) => item.name === person.name
@@ -89,7 +117,7 @@ const Result = () => {
                     </CardWithBtn>
                   );
                 }
-              )}
+              )} */}
             </CardContainer>
           </CardArea>
         </ContentContainer>
