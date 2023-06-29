@@ -46,18 +46,16 @@ const VoteRouter = () => {
             element={<DemoVote />}
           />
         </Route>
-        <Route element={<PrivateRoute authentication={true} />}>
-          <Route
-            path="/result"
-            element={<Result />}
-          />
-        </Route>
-        <Route element={<PrivateRoute authentication={true} />}>
-          <Route
-            path="/result_demo"
-            element={<DemoResult />}
-          />
-        </Route>
+
+        <Route
+          path="/result"
+          element={<Result />}
+        />
+
+        <Route
+          path="/result_demo"
+          element={<DemoResult />}
+        />
       </Routes>
     </Router>
   );

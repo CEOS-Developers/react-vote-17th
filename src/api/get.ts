@@ -1,7 +1,7 @@
 import { GET } from "../utils/axios";
 
 export const onCheckPartResult = async (params: any, url: string) =>
-  await GET(`/vote/candidate/${url}/`, params);
+  await GET(`/vote/candidate/${url}/`);
 
 export const onCheckTeamResult = async (params: any) =>
-  await GET(`/vote/team/`, params);
+  await GET(`/vote/team/`);

@@ -23,7 +23,7 @@ const fetchWrap = async ({ method, url, body, params }: any) => {
   }
 };
 
-export const GET = (url: string, params: any) =>
+export const GET = (url: string, params?: any) =>
   fetchWrap({ method: "get", url, params });
 
 export const POST = (url: string, body: any, params?: any) =>

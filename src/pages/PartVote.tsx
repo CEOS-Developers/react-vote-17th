@@ -28,9 +28,17 @@ const PartVote = () => {
         user_name: loginUser.name,
         candidate: chosenUser, // 후보 번호
       };
-      const result = await onVoteCandidate("front", body, params);
-      console.log("[Vote result]", result);
-      alert("투표가 완료되었습니다.");
+      const result = await onVoteCandidate("front", body, params).then(
+        (res: any) => {
+          if (res.status === 200) {
+            alert("투표가 완료되었습니다.");
+          } else {
+            console.log(res);
+            alert(res.response.data.error);
+          }
+          return res;
+        }
+      );
     } catch (e) {
       console.error(e);
       alert("이미 투표하였거나, 투표 기간이 아닙니다.");
